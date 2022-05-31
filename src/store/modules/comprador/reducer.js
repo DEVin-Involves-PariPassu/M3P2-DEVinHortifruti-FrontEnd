@@ -1,0 +1,1 @@
+//adicionar reducers de comprador
