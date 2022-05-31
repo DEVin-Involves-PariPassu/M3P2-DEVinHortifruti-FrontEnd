@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter } from "react-router-dom";
+import { PersistGate } from 'redux-persist/integration/react'
+
+import { Provider } from "react-redux";
+import Menu from "./components/Menu";
+import Routes from "./routes";
+
+import {store, persistor} from "./store";
+
+// * 1 - Configurar o componente de Provider no App.js 
+// * 2 - Configurar o create Store
+// * 3 - Configurar as actions
+// * 4 - Configurar as reducers
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+      <BrowserRouter>
+        <Menu />
+        <Routes />
+      </BrowserRouter>
+      </PersistGate>
+    </Provider>
   );
 }
 
