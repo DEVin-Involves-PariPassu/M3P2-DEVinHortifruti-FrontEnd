@@ -1,7 +1,15 @@
 import React from 'react';
+import { Routes as Switch, Route } from "react-router-dom";
+
 import ProdutoList from '../pages/Produtos/List';
+import ProdutoForm from 'pages/Produtos/Form';
+import UsuarioForm from 'pages/Usuarios/Form';
+import UsuarioList from 'pages/Usuarios/List';
 import Carrinho from '../pages/Vendas/Form/Carrinho';
+import Comprador from 'pages/Vendas/Form/Comprador';
 import DadosEntrega from '../pages/Vendas/Form/DadosEntrega';
+import Resumo from 'pages/Vendas/Form/Resumo';
+import VendaList from 'pages/Vendas/List';
 
 // import { Container } from './styles';
 

@@ -2,8 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from 'redux-persist/integration/react'
 
 import { Provider } from "react-redux";
-import Menu from "./components/Menu";
-import Routes from "./routes";
+import Routes from "./Routes/index.js";
 
 import {store, persistor} from "./store";
 
@@ -17,7 +16,6 @@ function App() {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
-        <Menu />
         <Routes />
       </BrowserRouter>
       </PersistGate>
