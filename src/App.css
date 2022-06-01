@@ -1,0 +1,19 @@
+/* 
+Fontes da logo:
+ font-family: "Squada One", cursive;
+ font-family: "Homemade Apple", cursive;
+ font-family: "Exo", sans-serif;
+
+ Paleta de cores:
+ Marrom: #521E12;
+ Laranja: #D06618;
+ Amarelo: #F59B16;
+ Verde escuro: #4A5926;
+ Verde médio: #36A23F;
+ Verde claro: #C4CAAF;
+ Branco: #FFFFFF;
+*/
+
+* {
+    box-sizing: border-box;
+  }
