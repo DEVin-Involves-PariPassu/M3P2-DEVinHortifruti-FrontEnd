@@ -3,7 +3,7 @@ import { InputBase, Paper } from "@mui/material";
 
 import { Search } from "@mui/icons-material";
 
-function InputBusca({ placeholder, onChange }) {
+function Search({ placeholder, onChange }) {
   return (
     <Paper
       elevation={3}
@@ -27,4 +27,4 @@ function InputBusca({ placeholder, onChange }) {
   );
 }
 
-export default InputBusca;
+export default Search;
