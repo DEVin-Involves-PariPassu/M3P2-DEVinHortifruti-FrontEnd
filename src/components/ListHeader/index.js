@@ -1,10 +1,12 @@
 import React from "react";
-import "./style.css";
 
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
-import { AddBusiness, PersonAddAlt, PostAdd } from "@mui/icons-material";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
+import AddBusinessIcon from "@mui/icons-material/AddBusiness";
+
 
 function ListHeader({ paginaAtual, rota }) {
   return (
@@ -21,20 +23,20 @@ function ListHeader({ paginaAtual, rota }) {
         {paginaAtual === "vendas" && (
           <>
             <h3>NOVA VENDA</h3>
-            <AddBusiness />
+            <AddBusinessIcon />
           </>
         )}
 
         {paginaAtual === "usuarios" && (
           <>
             <h3>NOVO USUÁRIO</h3>
-            <PersonAddAlt />
+            <PersonAddAltIcon />
           </>
         )}
         {paginaAtual === "produtos" && (
           <>
             <h3>NOVO PRODUTO</h3>
-            <PostAdd />
+            <PostAddIcon />
           </>
         )}
       </Button>
