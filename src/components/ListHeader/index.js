@@ -1,5 +1,4 @@
 import React from "react";
-import "./style.css";
 
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
@@ -15,7 +14,7 @@ function ListHeader({ paginaAtual, rota }) {
       <Button
         variant="contained"
         href={rota}
-        color="primary"
+        color="variant"
         size="medium"
       >
         {paginaAtual === "vendas" && (
