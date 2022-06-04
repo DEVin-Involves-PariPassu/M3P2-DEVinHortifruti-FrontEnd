@@ -12,7 +12,8 @@ import {
   TablePagination,
 } from "@mui/material";
 
-import { Visibility, Cancel, CheckCircle } from "@mui/icons-material";
+import { BsCheckCircleFill } from "react-icons/bs";
+import { MdVisibility, MdCancel } from "react-icons/md";
 
 const columns = [
   { id: "cpf", label: "CPF", minWidth: 100 },
@@ -175,22 +176,22 @@ export default function TableSales() {
                     <TableCell>{valor}</TableCell>
                     <TableCell align="center">
                       {status === "cancelada" && <abbr title="Visualizar Venda">
-                          <Visibility color="info"  />
+                          <MdVisibility />
                           </abbr>}
                       {status === "ativa" && (
                         <>
                         <abbr title="Visualizar Venda">
-                          <Visibility color="info"  />
+                          <MdVisibility />
                           </abbr>
                           <abbr title="Cancelar Venda">
-                          <Cancel color="error"/>
+                          <MdCancel />
                           </abbr>
                         </>
                       )}
                     </TableCell>
                     <TableCell align="center">
-                      {status === "cancelada" && <abbr title="Venda Cancelada"><Cancel color="error"/></abbr>}
-                      {status === "ativa" && <abbr title="Venda "><CheckCircle color="primary" /></abbr>}
+                      {status === "cancelada" && <abbr title="Venda Cancelada"><MdCancel /></abbr>}
+                      {status === "ativa" && <abbr title="Venda "><BsCheckCircleFill /></abbr>}
                     </TableCell>
                   </TableRow>
                 );
