@@ -1,9 +1,9 @@
 import React from "react";
 import { InputBase, Paper } from "@mui/material";
 
-import  {Search} from "@mui/icons-material";
+import  {BiSearchAlt2} from "react-icons/bi";
 
-function InputBusca({ placeholder, onChange }) {
+function InputSearch({ placeholder, onChange }) {
   return (
     <Paper
       elevation={3}
@@ -22,9 +22,9 @@ function InputBusca({ placeholder, onChange }) {
         type={"text"}
         onChange={onChange}
       />
-      <Search />
+      <BiSearchAlt2 />
     </Paper>
   );
 }
 
-export default InputBusca;
+export default InputSearch;
