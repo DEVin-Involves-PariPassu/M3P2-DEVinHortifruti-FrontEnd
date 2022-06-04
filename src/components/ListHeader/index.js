@@ -3,9 +3,9 @@ import React from "react";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
-import MdOutlineAddBusiness from "react-icons/md";
-import BsPersonPlus from "react-icons/bs";
-import MdOutlinePostAdd from "react-icons/md";
+import {MdOutlineAddBusiness} from "react-icons/md";
+import {BsPersonPlus} from "react-icons/bs";
+import {MdOutlinePostAdd} from "react-icons/md";
 
 function ListHeader({ paginaAtual, onClick }) {
   return (
