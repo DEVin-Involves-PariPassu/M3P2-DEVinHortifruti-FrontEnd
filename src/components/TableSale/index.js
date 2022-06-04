@@ -1,6 +1,6 @@
-import React from "react";
-import { useState } from "react";
+import { React, useState, useEffect } from "react";
 import "./TableSale.css";
+import axios from "axios";
 import {
   TableContainer,
   Table,
@@ -42,7 +42,7 @@ const columns = [
 export default function TableSales() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [busca, setBusca] = useState({})
+  const [vendas, setVendas] = useState([]);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -52,8 +52,9 @@ export default function TableSales() {
     setPage(0);
   };
 
-  function defaultLabelDisplayedRows({ from, to, count }) 
-  { return `${from}–${to} de ${count !== -1 ? count : `mais ${to}`}`; }
+  function defaultLabelDisplayedRows({ from, to, count }) {
+    return `${from}–${to} de ${count !== -1 ? count : `mais ${to}`}`;
+  }
 
   const data = [
     {
@@ -105,54 +106,20 @@ export default function TableSales() {
       valor: "R$ 600,45",
       status: "ativa",
     },
-    {
-      id: 8,
-      cpf: "42577914112",
-      nomeCliente: "Bruno",
-      valor: "R$ 999,90",
-      status: "ativa",
-    },
-    {
-      id: 9,
-      cpf: "01237896531",
-      nomeCliente: "Kate",
-      valor: "R$ 100,00",
-      status: "ativa",
-    },
-    {
-      id: 10,
-      cpf: "88680174722",
-      nomeCliente: "Carlos",
-      valor: "R$ 455,77",
-      status: "cancelada",
-    },
-    {
-      id: 11,
-      cpf: "10247776531",
-      nomeCliente: "Douglas",
-      valor: "R$ 122,40",
-      status: "cancelada",
-    },
-    {
-      id: 12,
-      cpf: "11980224722",
-      nomeCliente: "Danilo",
-      valor: "R$ 7530,97",
-      status: "ativa",
-    },
-    {
-      id: 13,
-      cpf: "31247556531",
-      nomeCliente: "Julia",
-      valor: "R$ 106,50",
-      status: "ativa",
-    },
   ];
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8081/vendas")
+      .then((response) => setVendas(response.data))
+      .catch(() => alert('Houve um problema ao buscar os dados!'));
+  }, []);
+
   return (
     <Paper elevation={3} className="container tabela">
       <TableContainer sx={{ maxHeight: 600 }}>
         <Table stickyHeader aria-label="sticky table">
-          <TableHead sx={{bg:'backgroud.extra'}}>
+          <TableHead sx={{ bg: "backgroud.extra" }}>
             <TableRow>
               {columns.map((column) => (
                 <TableCell
@@ -166,7 +133,7 @@ export default function TableSales() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data
+            {vendas
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map(({ id, nomeCliente, cpf, valor, status }) => {
                 return (
@@ -175,23 +142,33 @@ export default function TableSales() {
                     <TableCell>{nomeCliente}</TableCell>
                     <TableCell>{valor}</TableCell>
                     <TableCell align="center">
-                      {status === "cancelada" && <abbr title="Visualizar Venda">
-                          <MdVisibility />
-                          </abbr>}
-                      {status === "ativa" && (
-                        <>
+                      {status === "cancelada" && (
                         <abbr title="Visualizar Venda">
                           <MdVisibility />
+                        </abbr>
+                      )}
+                      {status === "ativa" && (
+                        <>
+                          <abbr title="Visualizar Venda">
+                            <MdVisibility />
                           </abbr>
                           <abbr title="Cancelar Venda">
-                          <MdCancel />
+                            <MdCancel />
                           </abbr>
                         </>
                       )}
                     </TableCell>
                     <TableCell align="center">
-                      {status === "cancelada" && <abbr title="Venda Cancelada"><MdCancel /></abbr>}
-                      {status === "ativa" && <abbr title="Venda "><BsCheckCircleFill /></abbr>}
+                      {status === "cancelada" && (
+                        <abbr title="Venda Cancelada">
+                          <MdCancel />
+                        </abbr>
+                      )}
+                      {status === "ativa" && (
+                        <abbr title="Venda Ativa">
+                          <BsCheckCircleFill />
+                        </abbr>
+                      )}
                     </TableCell>
                   </TableRow>
                 );
@@ -202,7 +179,7 @@ export default function TableSales() {
       <TablePagination
         rowsPerPageOptions={[5, 10]}
         component="div"
-        count={data.length}
+        count={vendas.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
