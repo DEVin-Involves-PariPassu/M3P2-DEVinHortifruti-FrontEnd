@@ -10,6 +10,7 @@ import {
   TableCell,
   Paper,
   TablePagination,
+  IconButton,
 } from "@mui/material";
 
 import { BsCheckCircleFill } from "react-icons/bs";
@@ -17,23 +18,23 @@ import { MdVisibility, MdCancel } from "react-icons/md";
 
 const columns = [
   { id: "cpf", label: "CPF", minWidth: 100 },
-  { id: "cliente", label: "Cliente", minWidth: 100 },
+  { id: "cliente", label: "CLIENTE", minWidth: 100 },
   {
     id: "valor",
-    label: "Valor",
+    label: "VALOR",
     minWidth: 90,
     align: "left",
     format: (value) => value.toFixed(2),
   },
   {
     id: "acao",
-    label: "Ações",
+    label: "AÇÕES",
     minWidth: 70,
     align: "center",
   },
   {
     id: "status",
-    label: "Status",
+    label: "STATUS",
     minWidth: 70,
     align: "center",
   },
@@ -139,15 +140,21 @@ export default function TableSales() {
   return (
     <Paper elevation={3} className="container tabela">
       <TableContainer sx={{ maxHeight: 600 }}>
-        <Table>
-          <TableHead color='variant'>
-            <TableRow color='variant' >
+        <Table stickyHeader area-label="sticky Table">
+          <TableHead>
+            <TableRow>
               {columns.map((column) => (
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  
-                  sx={{ minWidth: column.minWidth, fontFamily: 'Exo', fontSize: '1rem', fontWeight: 'bold', color:"#4A5926" }}
+                  sx={{
+                    minWidth: column.minWidth,
+                    fontFamily: "Exo",
+                    background: "#FFFFFF",
+                    fontSize: "1.1rem",
+                    fontWeight: "bold",
+                    color: "#4A5926",
+                  }}
                 >
                   {column.label}
                 </TableCell>
@@ -159,36 +166,84 @@ export default function TableSales() {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map(({ id, nomeCliente, cpf, valor, status }) => {
                 return (
-                  <TableRow key={id} hover role="checkbox" tabIndex={-1} >
-                    <TableCell style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem' }}>{cpf}</TableCell>
-                    <TableCell sx={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.9rem'  }}>{nomeCliente}</TableCell>
-                    <TableCell style={{ color:'#4A5926', fontFamily: 'Exo' , fontSize: '0.8rem' }}>{valor}</TableCell>
+                  <TableRow key={id} hover role="checkbox" tabIndex={-1}>
+                    <TableCell
+                      style={{
+                        color: "#4A5926",
+                        fontFamily: "Exo",
+                        fontSize: "0.8rem",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {cpf}
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        color: "#4A5926",
+                        fontFamily: "Exo",
+                        fontSize: "0.9rem",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {nomeCliente}
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        color: "#4A5926",
+                        fontFamily: "Exo",
+                        fontSize: "0.8rem",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {valor}
+                    </TableCell>
                     <TableCell align="center">
                       {status === "cancelada" && (
-                        <abbr title="Visualizar Venda">
-                          <MdVisibility size={'18px'} color={'#D06618'}/>
-                        </abbr>
+                        <IconButton
+                          aria-label="Visualizar"
+                          sx={{
+                            ":hover": { background: "#C4CAAF" },
+                          }}
+                        >
+                          <abbr title="Visualizar Venda">
+                            <MdVisibility size={"18px"} color={"#D06618"} />
+                          </abbr>
+                        </IconButton>
                       )}
                       {status === "ativa" && (
                         <>
-                          <abbr title="Visualizar Venda">
-                            <MdVisibility size={'18px'} color={'#D06618'} style={{marginRight: '5px'}}/>
-                          </abbr>
-                          <abbr title="Cancelar Venda">
-                            <MdCancel size={'18px'} color={'#521E12'}/>
-                          </abbr>
+                          <IconButton
+                            aria-label="Visualizar"
+                            sx={{
+                              ":hover": { background: "#C4CAAF" },
+                            }}
+                          >
+                            <abbr title="Visualizar Venda">
+                              <MdVisibility size={"18px"} color={"#D06618"} />
+                            </abbr>
+                          </IconButton>
+                          <IconButton
+                            aria-label="Cancelar Venda"
+                            sx={{
+                              ":hover": { background: "#C4CAAF" },
+                            }}
+                          >
+                            <abbr title="Cancelar Venda">
+                              <MdCancel size={"18px"} color={"#521E12"} />
+                            </abbr>
+                          </IconButton>
                         </>
                       )}
                     </TableCell>
                     <TableCell align="center">
                       {status === "cancelada" && (
                         <abbr title="Venda Cancelada">
-                          <MdCancel size={'18px'} color={'#521E12'}/>
+                          <MdCancel size={"18px"} color={"#521E12"} />
                         </abbr>
                       )}
                       {status === "ativa" && (
                         <abbr title="Venda Ativa">
-                          <BsCheckCircleFill size={'15px'} color={'#36A23F'}/>
+                          <BsCheckCircleFill size={"15px"} color={"#36A23F"} />
                         </abbr>
                       )}
                     </TableCell>
@@ -201,7 +256,7 @@ export default function TableSales() {
       <TablePagination
         rowsPerPageOptions={[5, 10]}
         component="div"
-        style={{color: '#4A5926', fontFamily:'Exo' }}
+        sx={{ color: "#4A5926", fontFamily: "Exo" }}
         count={data.length}
         rowsPerPage={rowsPerPage}
         page={page}
