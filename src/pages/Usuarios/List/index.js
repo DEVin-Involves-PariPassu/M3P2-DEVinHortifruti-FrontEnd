@@ -1,9 +1,32 @@
-import React from 'react';
+import React from "react";
+import ListHeader from "components/ListHeader";
+import InputSearch from "components/InputSearch";
+import { useNavigate } from "react-router";
+import UsuarioList from "components/UsuarioList";
 
-// import { Container } from './styles';
+function UsuarioListPage() {
+  const navigate = useNavigate();
 
-function UsuarioList() {
-  return <div />;
+  return (
+    <div className="pg-background">
+      <div className="pg-container">
+        <ListHeader
+          paginaAtual="usuarios"
+          onClick={() => navigate("/usuarios/novo")}
+        ></ListHeader>
+
+        <InputSearch
+          placeholder="Digite o nome do usuário"
+          onChange={""}
+          className="search-usuario"
+        />
+
+        <div className="tb-container">
+          <UsuarioList />
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default UsuarioList;
+export default UsuarioListPage;
