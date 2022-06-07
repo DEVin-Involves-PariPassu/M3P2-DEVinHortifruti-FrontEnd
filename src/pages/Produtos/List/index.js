@@ -1,7 +1,14 @@
 import React from 'react';
-import InputBusca from 'components/InputBusca';
+import { useState, useEffect } from 'react';
+import api from 'utils/api';
+import axios from 'axios';
 import ListHeader from 'components/ListHeader';
-import { useState } from 'react'
+import InputSearch from 'components/InputSearch';
+import {MdEdit} from "react-icons/md"
+import { BsCheckCircleFill } from "react-icons/bs";
+import { MdCancel } from "react-icons/md";
+import '../List/style.css';
+
 import {
   TableContainer,
   Table,
@@ -10,22 +17,22 @@ import {
   TableRow,
   TableCell,
   Paper,
+  IconButton,
 } from "@mui/material";
-import { Create, Cancel, CheckCircle } from "@mui/icons-material";
-// import { Container } from './styles';
+
 
 const columns = [
-  { id: "1", label: "Produto", minWidth: 100 },
-  { id: "valor", label: "Valor", minWidth: 100 },
+  { id: "1", label: "PRODUTO", minWidth: 100 },
+  { id: "valor", label: "VALOR", minWidth: 100 },
   {
     id: "status",
-    label: "Status",
+    label: "STATUS",
     minWidth: 70,
     align: "center",
   },
   {
     id: "acao",
-    label: "Ações",
+    label: "AÇÕES",
     minWidth: 70,
     align: "center",
   },
@@ -48,130 +55,139 @@ function ProdutoList() {
     this.setState({
       nomeCliente: resultFilter,
     });
+
   }
+  // const [produto, setProduto] = useState([]);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:8081/produto")
+  //     .then((response) => setProduto(response.data))
+  //     .catch(() => alert('Houve um problema ao buscar os dados!'));
+  // }, []);
+
   
   const data = [
     {
       id: 1,
-      nomeProduto: "Daiana",
-      valorPCaixa: "R$ 1476,99",
-      status: "ativa",
+      nome: "Melão",
+      precoSugerido: "R$ 1476,99",
+      isAtivo: true,
     },
     {
       id: 2,
-      nomeProduto: "Daiana",
-      valorPCaixa: "R$ 1476,99",
-      status: "inativo",
+      nome: "Mamão",
+      precoSugerido: "R$ 1476,99",
+      isAtivo: true,
     },
     {
       id: 3,
-      nomeProduto: "Daiana",
-      valorPCaixa: "R$ 1476,99",
-      status: "ativa",
+      nome: "Manga",
+      precoSugerido: "R$ 1476,99",
+      isAtivo: true,
     },
     {
       id: 4,
-      nomeProduto: "Daiana",
-      valorPCaixa: "R$ 1476,99",
-      status: "inativo",
+      nome: "Carambola",
+      precoSugerido: "R$ 1476,99",
+      isAtivo: false,
     },
     {
       id: 5,
-      nomeProduto: "Daiana",
-      valorPCaixa: "R$ 1476,99",
-      status: "ativa",
+      nome: "Limão",
+      precoSugerido: "R$ 1476,99",
+      isAtivo: true,
     },
     {
       id: 6,
-      nomeProduto: "Daiana",
-      valorPCaixa: "R$ 1476,99",
-      status: "ativa",
+      nome: "Laranja",
+      precoSugerido: "R$ 1476,99",
+      isAtivo: false,
     },
     {
       id: 7,
-      nomeProduto: "Daiana",
-      valorPCaixa: "R$ 1476,99",
-      status: "ativa",
+      nome: "Melancia",
+      precoSugerido: "R$ 1476,99",
+      isAtivo: true,
     },
     {
       id: 8,
-      nomeProduto: "Daiana",
-      valorPCaixa: "R$ 1476,99",
-      status: "ativa",
+      nome: "Pêra",
+      precoSugerido: "R$ 1476,99",
+      isAtivo: false,
     },
     {
       id: 9,
-      nomeProduto: "Daiana",
-      valorPCaixa: "R$ 1476,99",
-      status: "ativa",
+      nome: "Abacate",
+      precoSugerido: "R$ 1476,99",
+      isAtivo: true,
     },
     {
       id: 10,
-      nomeProduto: "Daiana",
-      valorPCaixa: "R$ 1476,99",
-      status: "ativa",
+      nome: "Uva",
+      precoSugerido: "R$ 1476,99",
+      isAtivo: true,
     },
     {
       id: 11,
-      nomeProduto: "Daiana",
-      valorPCaixa: "R$ 1476,99",
-      status: "ativa",
+      nome: "Maçã",
+      precoSugerido: "R$ 1476,99",
+      isAtivo: false,
     },
     {
       id: 12,
-      nomeProduto: "Daiana",
-      valorPCaixa: "R$ 1476,99",
-      status: "ativa",
+      nome: "Banana",
+      precoSugerido: "R$ 1476,99",
+      isAtivo: true,
     },
     {
       id: 13,
-      nomeProduto: "Daiana",
-      valorPCaixa: "R$ 1476,99",
-      status: "ativa",
+      nome: "Manga",
+      precoSugerido: "R$ 1476,99",
+      isAtivo: false,
     },
   ];
 
 
   return (<>
-  
-  <ListHeader paginaAtual="produtos" href="/produtos"></ListHeader>
-  <InputBusca placeholder={"Buscar por Produto..."} onChange={onChange}/>
+  <div className="container"> 
+  <section className='container produtos'>
+  <ListHeader paginaAtual="produtos" onClick={""}/>
+  <InputSearch placeholder={"Buscar por produto..."} onChange={""}/>
 
 <Paper elevation={3} className="container tabela">
       <TableContainer sx={{ maxHeight: 600 }}>
-        <Table stickyHeader aria-label="sticky table">
+        <Table stickHeader aria-label="sticky table" sx={{color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold'}}>
           <TableHead sx={{bg:'backgroud.extra'}}>
-            <TableRow>
+            <TableRow >
               {columns.map((column) => (
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth }}
+                  sx={{ minWidth: column.minWidth, fontFamily: 'Exo', fontSize: '1rem', fontWeight: 'bold', color:"#4A5926"}}
                 >
                   {column.label}
                 </TableCell>
               ))}
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody sx={{ maxHeight: 600, color: '#36A23F'}} >
             {data
-              .map(({ id, nomeProduto, valorPCaixa, status }) => {
+              .map(({ id, nome, precoSugerido, isAtivo }) => {
                 return (
                   <TableRow key={id} hover role="checkbox" tabIndex={-1}>
-                    <TableCell>{nomeProduto}</TableCell>
-                    <TableCell>{valorPCaixa}</TableCell>
-                    <TableCell align="center">
-                      {status === "ativa" && <abbr title="Ativo">
-                          <CheckCircle color="info"  />
+                    <TableCell style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>{nome}</TableCell>
+                    <TableCell style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>{precoSugerido}</TableCell>
+                    <TableCell align="center" style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>
+                      {isAtivo === true && <abbr title="Ativo">
+                        <BsCheckCircleFill color='#36A23F'/>                        
                           </abbr>}
-                      {status === "inativo" && (                                      
-                          <abbr title="Inativo">
-                          <Cancel color="error"/>
+                      {isAtivo === false && (                                      
+                          <abbr title="Inativo"><MdCancel color="#521E12" size="16px"/>
                           </abbr>        
                       )}
                     </TableCell>
-                    <TableCell align="center">
-                    <abbr title = "Editar produto"><Create color="error"/></abbr>
+                    <TableCell align="center" style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>
+                    <abbr title = "Editar produto"><IconButton ><MdEdit color='#D06618'className='botao-editar'/></IconButton></abbr>
                 
                     </TableCell>
                   </TableRow>
@@ -181,6 +197,8 @@ function ProdutoList() {
         </Table>
       </TableContainer>
     </Paper>
+    </section>
+    </div>
     </>);}
 
 export default ProdutoList;
