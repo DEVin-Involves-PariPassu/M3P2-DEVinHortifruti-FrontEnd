@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import marca_logo from "../../assets/marca_dagua.png";
 
 export const Container = styled.div`
   display: flex;
@@ -6,6 +7,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #ff9e00;
+  background-image: url(${marca_logo});
   height: 100vh;
 `;
 
