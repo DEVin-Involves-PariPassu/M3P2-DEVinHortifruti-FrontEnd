@@ -1,0 +1,22 @@
+/* 
+Fontes da logo:
+ font-family: "Squada One", cursive;
+ font-family: "Homemade Apple", cursive;
+ font-family: "Exo", sans-serif;
+
+
+Para usar as cores da paleta, declarar assim como o exemplo:
+background-color: var(--verde-secundario);
+*/
+:root {
+  --verde-primario: #36a23f;
+  --verde-secundario: #c4caaf;
+  --verde-apoio: #4a5926;
+  --laranja-primario: #f59b16;
+  --laranja-secundario: #d06618;
+  --marrom-apoio: #521e12;
+}
+
+* {
+  box-sizing: border-box;
+}
