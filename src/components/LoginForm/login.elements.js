@@ -3,12 +3,13 @@ import marca_logo from "../../assets/marca_dagua.png";
 
 export const Container = styled.div`
   display: flex;
-  box-sizing: content-box;
   justify-content: center;
   align-items: center;
+  box-sizing: content-box;
   background-color: #ff9e00;
   background-image: url(${marca_logo});
   height: 100vh;
+  width: 100vw;
 `;
 
 export const ContainerDivs = styled.div`
@@ -16,12 +17,13 @@ export const ContainerDivs = styled.div`
   flex-direction: column;
   box-sizing: content-box;
   justify-content: center;
-  align-items: center;
+
   border-radius: 10px;
   width: 400px;
   padding: 20px 5px 20px 5px;
   height: 70vh;
   max-height: 600px;
+  min-height: 400px;
   background-color: #fff7de;
   box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
     rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
