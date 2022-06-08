@@ -11,3 +11,32 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 auto;
+  width: 40%;
+  font-family: 'Squada One';
+  color: #521e12;
+  font-size: 2.2rem;
+}
+
+.form-produto {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 auto;
+  width: 40%;
+}
+
+.form-produto img {
+  align-self: center;
+  border-radius: 50%;
+}
+
+.form-action {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
