@@ -77,7 +77,6 @@ export const UserFormInput = styled.input`
 
   &:focus {
     outline: 0;
-    background-color: #19a42c05;
   }
   &:hover {
     background-color: #19a42c05;
@@ -104,7 +103,6 @@ export const PasswordFormInput = styled.input`
 
   &:focus {
     outline: 0;
-    background-color: #19a42c05;
   }
   &:hover {
     background-color: #19a42c05;

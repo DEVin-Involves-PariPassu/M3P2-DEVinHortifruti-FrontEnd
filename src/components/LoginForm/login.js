@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {
   Container,
   ContainerDivs,
@@ -15,9 +15,8 @@ import Logo from "../../assets/logo1_colorida.png";
 
 
 function LoginForm() {
-  const [login, setLogin] = useState("");
 
-  
+
   return (
     <Container>
       <ContainerDivs>
