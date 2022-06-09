@@ -8,7 +8,6 @@ function InputSearch({ placeholder }) {
   const handleChange = (e) => {
     setBusca(e.target.value);
   };
-import { BiSearchAlt2 } from "react-icons/bi";
   return (
     <Paper
       elevation={3}
