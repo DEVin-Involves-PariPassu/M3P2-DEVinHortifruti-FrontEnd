@@ -12,15 +12,7 @@ function ListHeader({ paginaAtual, onClick }) {
       {paginaAtual === "vendas" && <h1 className="title">Vendas Cadastradas </h1>}
       {paginaAtual === "produtos" && <h1 className="title">Produtos Cadastrados </h1>}
       {paginaAtual === "usuarios" && <h1 className="title">Usuários Cadastrados </h1>}
-      {paginaAtual === "vendas" && (
-        <h1 className="title">Vendas Cadastradas </h1>
-      )}
-      {paginaAtual === "produtos" && (
-        <h1 className="title">Produtos Cadastrados </h1>
-      )}
-      {paginaAtual === "usuarios" && (
-        <h1 className="title">Usuários Cadastrados </h1>
-      )}
+      
       <Button
         variant="contained"
         color="variant"
