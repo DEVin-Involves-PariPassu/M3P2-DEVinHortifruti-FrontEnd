@@ -5,57 +5,42 @@ import TableSale from "../../../components/TableSale";
 import ListHeader from "../../../components/ListHeader";
 import InputSearch from "components/InputSearch";
 
-const columns = [
-  { id: "cpf", label: "CPF", minWidth: 100 },
-  { id: "cliente", label: "Cliente", minWidth: 100 },
-  {
-    id: "valor",
-    label: "Valor",
-    minWidth: 90,
-    align: "left",
-    format: (value) => value.toFixed(2),
-  },
-  {
-    id: "acao",
-    label: "Ações",
-    minWidth: 70,
-    align: "center",
-  },
-  {
-    id: "status",
-    label: "Status",
-    minWidth: 70,
-    align: "center",
-  },
-];
+import { useNavigate } from "react-router";
 
 function VendaList() {
-  const [busca, setBusca] = useState("");
-  const onChange = () => {
-    setBusca(InputSearch.value);
+  let navigate = useNavigate();
 
+  function handleClick() {
+    navigate("/vendas/novo/comprador");
+  }
+
+  const [busca, setBusca] = useState([]);
+  const [data, setData] = useState([]);
+  const handleChange = (e) => {
+    setBusca(e.target.value);
+
+    console.log(busca);
     const lowerBusca = busca.toLowerCase();
 
-    const resultFilter = this.vendas.filter((data) => {
+    const resultFilter = data.filter((data) => {
       return data.nomeCliente.toLowerCase().includes(lowerBusca);
     });
 
-    this.setState({
-      nomeCliente: resultFilter,
-    });
+    setData(resultFilter);
+    // this.setState({
+    //   nomeCliente: resultFilter,
+    // });
   };
 
   return (
-    <div className="container">
-      <section className="container vendas">
-        <ListHeader paginaAtual="vendas" onClick={""}></ListHeader>
-        <InputSearch
-          placeholder={"Buscar por Cliente ..."}
-          value={busca}
-          onChange={(e) => setBusca(e.target.value)}
-        />
-        <TableSale onChange={onChange} />
-      </section>
+    <div className="pg secao">
+      <div className="secao">
+        <section className="secao vendas">
+          <ListHeader paginaAtual="vendas" onClick={handleClick}></ListHeader>
+          <InputSearch placeholder={"Buscar por Cliente ..."} />
+          <TableSale onChange={handleChange} />
+        </section>
+      </div>
     </div>
   );
 }
