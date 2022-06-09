@@ -1,13 +1,12 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import api from 'utils/api';
-import axios from 'axios';
 import ListHeader from 'components/ListHeader';
 import InputSearch from 'components/InputSearch';
 import {MdEdit} from "react-icons/md"
 import { BsCheckCircleFill } from "react-icons/bs";
 import { MdCancel } from "react-icons/md";
-import '../List/style.css';
+import '../List/ListProduto.css';
 
 import {
   TableContainer,
@@ -57,104 +56,27 @@ function ProdutoList() {
     });
 
   }
-  // const [produto, setProduto] = useState([]);
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:8081/produto")
-  //     .then((response) => setProduto(response.data))
-  //     .catch(() => alert('Houve um problema ao buscar os dados!'));
-  // }, []);
+  const [produto, setProduto] = useState([]);
+  useEffect(() => {
+    api
+      .get("/produtos")
+      .then((response) => setProduto(response.data))
+      .catch(() => alert('Houve um problema ao buscar os dados!'));
+  }, []);
 
-  
-  const data = [
-    {
-      id: 1,
-      nome: "Melão",
-      precoSugerido: "R$ 1476,99",
-      isAtivo: true,
-    },
-    {
-      id: 2,
-      nome: "Mamão",
-      precoSugerido: "R$ 1476,99",
-      isAtivo: true,
-    },
-    {
-      id: 3,
-      nome: "Manga",
-      precoSugerido: "R$ 1476,99",
-      isAtivo: true,
-    },
-    {
-      id: 4,
-      nome: "Carambola",
-      precoSugerido: "R$ 1476,99",
-      isAtivo: false,
-    },
-    {
-      id: 5,
-      nome: "Limão",
-      precoSugerido: "R$ 1476,99",
-      isAtivo: true,
-    },
-    {
-      id: 6,
-      nome: "Laranja",
-      precoSugerido: "R$ 1476,99",
-      isAtivo: false,
-    },
-    {
-      id: 7,
-      nome: "Melancia",
-      precoSugerido: "R$ 1476,99",
-      isAtivo: true,
-    },
-    {
-      id: 8,
-      nome: "Pêra",
-      precoSugerido: "R$ 1476,99",
-      isAtivo: false,
-    },
-    {
-      id: 9,
-      nome: "Abacate",
-      precoSugerido: "R$ 1476,99",
-      isAtivo: true,
-    },
-    {
-      id: 10,
-      nome: "Uva",
-      precoSugerido: "R$ 1476,99",
-      isAtivo: true,
-    },
-    {
-      id: 11,
-      nome: "Maçã",
-      precoSugerido: "R$ 1476,99",
-      isAtivo: false,
-    },
-    {
-      id: 12,
-      nome: "Banana",
-      precoSugerido: "R$ 1476,99",
-      isAtivo: true,
-    },
-    {
-      id: 13,
-      nome: "Manga",
-      precoSugerido: "R$ 1476,99",
-      isAtivo: false,
-    },
-  ];
-
+  const [filter, setFilter] = useState([]);
+    const handleChange = (event) => {
+        const text = event.target.value;
+        setFilter(text);
+    }
 
   return (<>
-  <div className="container"> 
-  <section className='container produtos'>
+  <div className="secao"> 
+  <section className='secao-produtos'>
   <ListHeader paginaAtual="produtos" onClick={""}/>
   <InputSearch placeholder={"Buscar por produto..."} onChange={""}/>
 
-<Paper elevation={3} className="container tabela">
+<Paper elevation={3} className="secao tabela">
       <TableContainer sx={{ maxHeight: 600 }}>
         <Table stickHeader aria-label="sticky table" sx={{color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold'}}>
           <TableHead sx={{bg:'backgroud.extra'}}>
@@ -171,7 +93,7 @@ function ProdutoList() {
             </TableRow>
           </TableHead>
           <TableBody sx={{ maxHeight: 600, color: '#36A23F'}} >
-            {data
+            {produto
               .map(({ id, nome, precoSugerido, isAtivo }) => {
                 return (
                   <TableRow key={id} hover role="checkbox" tabIndex={-1}>
@@ -187,7 +109,7 @@ function ProdutoList() {
                       )}
                     </TableCell>
                     <TableCell align="center" style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>
-                    <abbr title = "Editar produto"><IconButton ><MdEdit color='#D06618'className='botao-editar'/></IconButton></abbr>
+                    <abbr title = "Editar produto"><IconButton sx={{':hover':{background:'#C4CAAF'}}}><MdEdit color='#D06618'className='botao-editar'/></IconButton></abbr>
                 
                     </TableCell>
                   </TableRow>
