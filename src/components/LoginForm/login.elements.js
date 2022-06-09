@@ -12,7 +12,7 @@ export const Container = styled.div`
   width: 100vw;
 `;
 
-export const ContainerDivs = styled.div`
+export const ContainerForm = styled.form`
   display: flex;
   flex-direction: column;
   box-sizing: content-box;
