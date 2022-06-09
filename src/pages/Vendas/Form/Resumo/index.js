@@ -1,9 +1,14 @@
-import React from 'react';
+import React from "react";
+import NovaVendaResumo from "components/NovaVendaResumo";
 
 // import { Container } from './styles';
 
 function Resumo() {
-  return <div />;
+  return (
+    <>
+      <NovaVendaResumo></NovaVendaResumo>
+    </>
+  );
 }
 
 export default Resumo;
