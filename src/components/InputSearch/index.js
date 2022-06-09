@@ -7,7 +7,7 @@ function InputSearch({ placeholder, onChange }) {
   return (
     <Paper
       elevation={3}
-      className="container busca"
+      className="secao busca"
       component="form"
       sx={{
         p: "2px 4px",
