@@ -12,12 +12,6 @@ function ListHeader({ paginaAtual, onClick }) {
       {paginaAtual === "vendas" && <h1 className="title">Vendas Cadastradas </h1>}
       {paginaAtual === "produtos" && <h1 className="title">Produtos Cadastrados </h1>}
       {paginaAtual === "usuarios" && <h1 className="title">Usuários Cadastrados </h1>}
-    <Stack
-      justifyContent={"space-between"}
-      direction="row"
-      alignItems={"center"}
-      width={"100%"}
-    >
       {paginaAtual === "vendas" && (
         <h1 className="title">Vendas Cadastradas </h1>
       )}
