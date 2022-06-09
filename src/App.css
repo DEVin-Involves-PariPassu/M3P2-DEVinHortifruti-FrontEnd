@@ -8,16 +8,54 @@ Fontes da logo:
 Para usar as cores da paleta, declarar assim como o exemplo:
 background-color: var(--verde-secundario);
 */
+
+/* - ESTILO GLOBAL - */
+
 :root {
-  --verde-primario: #36A23F;
-  --verde-secundario: #C4CAAF;
-  --verde-apoio: #4A5926;
-  --laranja-primario: #F59B16; 
-  --laranja-secundario: #D06618;
-  --marrom-apoio: #521E12;
+  --verde-primario: #36a23f;
+  --verde-secundario: #c4caaf;
+  --verde-apoio: #4a5926;
+  --laranja-primario: #f59b16;
+  --laranja-secundario: #d06618;
+  --marrom-apoio: #521e12;
+  text-align: -webkit-center;
 }
 
 * {
-    box-sizing: border-box;
-  }
-  
+  box-sizing: border-box;
+}
+
+h1 {
+  color: var(--marrom-apoio);
+  font-family: "Squada One", cursive;
+  font-weight: lighter;
+  font-size: 2.7rem;
+}
+
+h3 {
+  font-family: "Exo", sans-serif;
+}
+
+.pg-container {
+  background-color: var(--verde-secundario);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  height: 80%;
+  margin: 20px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+/* - LISTA DE USUÁRIOS - */
+
+.secao-usuarios {
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 2.7rem;
+  margin-top: 3rem;
+  margin-bottom: 4.5rem;
+}
