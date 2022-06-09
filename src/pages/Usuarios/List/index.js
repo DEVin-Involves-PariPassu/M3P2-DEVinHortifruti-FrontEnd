@@ -1,31 +1,25 @@
 import React from "react";
-import ListHeader from "components/ListHeader";
 import InputSearch from "components/InputSearch";
-import { useNavigate } from "react-router";
 import UsuarioList from "components/UsuarioList";
+import ListHeader from "components/ListHeader";
+import { useNavigate } from "react-router";
 
 function UsuarioListPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="pg-background">
-      <div className="pg-container">
-        <ListHeader
-          paginaAtual="usuarios"
-          onClick={() => navigate("/usuarios/novo")}
-        ></ListHeader>
+    <div className="pg-container">
+        <section className="secao-usuarios">
+          <ListHeader
+            paginaAtual="usuarios"
+            onClick={() => navigate("/usuarios/novo")}
+          />
 
-        <InputSearch
-          placeholder="Digite o nome do usuário"
-          onChange={""}
-          className="search-usuario"
-        />
+          <InputSearch placeholder={"Digite o nome do usuário"} onChange={""} />
 
-        <div className="tb-container">
           <UsuarioList />
-        </div>
+        </section>
       </div>
-    </div>
   );
 }
 
