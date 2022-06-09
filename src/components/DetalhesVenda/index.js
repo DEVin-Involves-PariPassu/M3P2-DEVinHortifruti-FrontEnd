@@ -96,7 +96,7 @@ function DetalhesVenda({aberto, handleFechar, idVenda, ...props}) {
             </Typography>
             </Box>
         : <Typography id="comprador" variant="h6" component="h2">
-            Nenhuma venda selecionada
+            Carregando...
           </Typography>
         }
         </div> 
