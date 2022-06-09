@@ -15,21 +15,13 @@ function VendaList() {
   }
 
   const [busca, setBusca] = useState([]);
-  const [data, setData] = useState([]);
   const handleChange = (e) => {
-    setBusca(e.target.value);
-
+    if(e.InputSearch.value === ""){
+      return busca;
+    }
+    setBusca(e.InputSearch.value.toLowerCase());
     console.log(busca);
-    const lowerBusca = busca.toLowerCase();
-
-    const resultFilter = data.filter((data) => {
-      return data.nomeCliente.toLowerCase().includes(lowerBusca);
-    });
-
-    setData(resultFilter);
-    // this.setState({
-    //   nomeCliente: resultFilter,
-    // });
+    return busca;
   };
 
   return (
@@ -38,7 +30,7 @@ function VendaList() {
         <section className="secao vendas">
           <ListHeader paginaAtual="vendas" onClick={handleClick}></ListHeader>
           <InputSearch placeholder={"Buscar por Cliente ..."} />
-          <TableSale onChange={handleChange} />
+          <TableSale filter = {handleChange}/>
         </section>
       </div>
     </div>

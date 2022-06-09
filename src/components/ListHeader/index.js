@@ -10,16 +10,16 @@ import {MdOutlinePostAdd} from "react-icons/md";
 
 function ListHeader({ paginaAtual, onClick }) {
   return (
-    <Stack spacing={28} direction="row" alignItems={'center'} width={'96%'}>
-      {paginaAtual === "vendas" && <h1 className="title">Vendas Cadastradas: </h1>}
-      {paginaAtual === "produtos" && <h1 className="title">Produtos Cadastrados: </h1>}
-      {paginaAtual === "usuarios" && <h1 className="title">Usuários Cadastrados: </h1>}
+    <Stack  direction="row" alignItems={'center'} width={'100%'} justifyContent={'space-between'}>
+      {paginaAtual === "vendas" && <h1 className="title">Vendas Cadastradas </h1>}
+      {paginaAtual === "produtos" && <h1 className="title">Produtos Cadastrados </h1>}
+      {paginaAtual === "usuarios" && <h1 className="title">Usuários Cadastrados </h1>}
       <Button
         variant="contained"
         color="variant"
         size="medium"
         onClick={onClick}
-        sx={{width: '170px', borderRadius: '25px', justifyContent: 'space-around', fontFamily:'Exo', fontSize: '0.7rem'}}
+        sx={{minWidth: '170px', justifyContent: 'space-around', fontFamily:'Exo', fontSize: '0.7rem'}}
       >
         {paginaAtual === "vendas" && (
           <>
