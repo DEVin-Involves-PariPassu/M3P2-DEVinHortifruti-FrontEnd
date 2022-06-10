@@ -8,6 +8,9 @@ Fontes da logo:
 Para usar as cores da paleta, declarar assim como o exemplo:
 background-color: var(--verde-secundario);
 */
+
+/* - ESTILO GLOBAL - */
+
 :root {
   --verde-primario: #36a23f;
   --verde-secundario: #c4caaf;
@@ -19,4 +22,97 @@ background-color: var(--verde-secundario);
 
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+h1 {
+  color: var(--marrom-apoio);
+  font-family: 'Squada One', cursive;
+  font-weight: lighter;
+  font-size: 2.7rem;
+}
+
+h3 {
+  font-family: 'Exo', sans-serif;
+}
+
+.pg-container {
+  background-color: var(--verde-secundario);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  height: 80%;
+  margin: 20px;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+/* PÁGINAS DE LISTAGEM DE PRODUTOS, USUÁRIOS E VENDAS */
+
+.secao {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: var(--verde-secundario);
+  justify-content: center;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.secao-usuarios,
+.secao-produtos,
+.secao.vendas {
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 2.7rem;
+  margin-top: 3rem;
+  margin-bottom: 4.5rem;
+}
+
+/* SIDEBAR */
+
+.logo-sidebar {
+  background-image: url('assets/logo4_colorida.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  width: 150px;
+  height: 100px;
+  margin-top: 30px;
+  margin-left: 50px;
+}
+
+.sidebar {
+  background-color: var(--verde-primario);
+  color: white;
+  height: 100%;
+}
+.sidebar span {
+  font-family: 'Squada One', cursive;
+  font-weight: lighter;
+  font-size: 18pt;
+  text-align: center;
+}
+.sidebar svg {
+  color: white;
+  font-size: 20pt;
+  margin-left: 30px;
+  text-align: center;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.switch-control {
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px;
 }

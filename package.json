@@ -21,7 +21,7 @@
     "redux-persist": "^6.0.0",
     "remask": "^0.1.0-alpha.5",
     "web-vitals": "^2.1.4",
-    "yup": "^0.32.11"
+    "styled-components": "^5.3.5"
   },
   "scripts": {
     "start": "react-scripts start",
