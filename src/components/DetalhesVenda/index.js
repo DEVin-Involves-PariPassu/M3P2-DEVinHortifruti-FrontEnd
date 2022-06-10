@@ -1,106 +1,228 @@
-import React, { useEffect, useState } from 'react';
-import api from 'utils/api';
-import { priceFormat } from 'utils/priceFormat';
-import { Modal, Box, Typography, Table, TableBody, TableHead, TableRow, TableCell } from '@mui/material';
+import React, { useEffect, useState } from "react";
+import api from "utils/api";
+import { priceFormat } from "utils/priceFormat";
+import {
+  Modal,
+  Box,
+  Typography,
+  Table,
+  TableBody,
+  TableHead,
+  TableRow,
+  TableCell,
+} from "@mui/material";
 
-function DetalhesVenda({aberto, handleFechar, idVenda, ...props}) {
+function DetalhesVenda({ aberto, handleFechar, idVenda, ...props }) {
+  const [venda, setVenda] = useState({});
 
-    // const [venda, setVenda] = useState({
-    //     nomeCliente: "Lucas Bueno Cesario",
-    //     cpf: "12345678901",
-    //     email: "lbc92@hotmail.com",
-    //     telefone: "48987654321",
-    //     totalVenda: 100.99,
-    //     endereco: "Rua Professora Rosinha Campos, 427\nAbraão - Florianópolis/SC",
-    //     itens: [
-    //         {
-    //             urlFoto: "https://www.infoescola.com/wp-content/uploads/2010/04/banana_600797891.jpg",
-    //             nome: "Banana",
-    //             quantidade: 1,
-    //             subtotal: 5.59
-    //         }, {
-    //             urlFoto: "https://d3ugyf2ht6aenh.cloudfront.net/stores/746/397/products/maca-argentina1-a86acef532d11addf315221676880019-1024-1024.jpg",
-    //             nome: "Maçã",
-    //             quantidade: 2,
-    //             subtotal: 6.78
-    //         }
-    //     ]
-    //     });
-    
-    const [venda, setVenda] = useState({});
+  useEffect(() => {
+    async function pegarVenda() {
+      try {
+        const { data } = await api.get(`/vendas/${idVenda}`);
+        setVenda(data);
+      } catch (e) {
+        console.error(e.message);
+      }
+    }
+    pegarVenda();
+  }, []);
 
-    useEffect(() => {
-        async function pegarVenda(){
-            try{
-                const {data} = await api.get(`/vendas/${idVenda}`);
-                setVenda(data);
-            } catch(e){
-                console.error(e.message);
-            }            
-        }
-        pegarVenda();
-    }, []);
+  console.log(venda);
 
-    console.log(venda);
-
-    return <Modal
-        open={aberto}
-        onClose={handleFechar}
-    >
-       
-        <div className="modal-venda-tamanho">
-        {Object.keys(venda).length !== 0 ? 
-            <Box>
-                <Typography id="comprador" variant="h6" component="h2">
+  return (
+    <Modal open={aberto} onClose={handleFechar}>
+      <div className="modal-venda-tamanho">
+        {Object.keys(venda).length !== 0 ? (
+          <Box>
+            <div className="modal-informacoes-comprador">
+              <Typography
+                id="comprador"
+                variant="h6"
+                component="h2"
+                sx={{
+                  fontFamily: "Squada One",
+                  fontSize: "1.3rem",
+                  fontWeight:'lighter'
+                }}
+              >
                 Comprador: {venda.nomeCliente}
-                </Typography>
-                <Typography id="cpf" variant="h6" component="h2">
+              </Typography>
+              <Typography id="cpf" variant="h6" component="h2" sx={{
+                  fontFamily: "Squada One",
+                  fontSize: "1.3rem",
+                  fontWeight:'lighter'
+                }}>
                 CPF: {venda.cpf}
-                </Typography>
-                <Typography id="email" variant="h6" component="h2">
+              </Typography>
+              <Typography id="email" variant="h6" component="h2" sx={{
+                  fontFamily: "Squada One",
+                  fontSize: "1.3rem",
+                  fontWeight:'lighter'
+                }}>
                 Email: {venda.email}
-                </Typography>
-                <Typography id="comprador" variant="h6" component="h2">
+              </Typography>
+              <Typography id="comprador" variant="h6" component="h2" sx={{
+                  fontFamily: "Squada One",
+                  fontSize: "1.3rem",
+                  fontWeight:'lighter'
+                }}>
                 Telefone: {venda.telefone}
-                </Typography>
-                <Typography id="comprador" variant="h6" component="h2">
+              </Typography>
+            </div>
+            <div className="modal-total-venda">
+              <Typography id="comprador" variant="h6" component="h2"sx={{
+                  fontFamily: "Exo",
+                  fontSize: "1.2rem",
+                  fontWeight:'bold'
+                }}>
                 Total da venda: {priceFormat(venda.totalVenda)}
-                </Typography>
-            <Table sx={{ minWidth: 650 }} size="small" aria-label="Detalhes da venda">
-                <TableHead>
+              </Typography>
+            </div>
+            <Table
+              size="small"
+              aria-label="Detalhes da venda"
+              className="modal-tabela"
+            >
+              <TableHead className="modal-tabela-cabecalho">
                 <TableRow>
-                    <TableCell>#</TableCell>
-                    <TableCell align="right">Produto</TableCell>
-                    <TableCell align="right">QTD</TableCell>
-                    <TableCell align="right">Subtotal</TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      color: "#521e12",
+                      fontFamily: "Exo",
+                      fontSize: "1rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    #
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      color: "#521e12",
+                      fontFamily: "Exo",
+                      fontSize: "1rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    PRODUTO
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      color: "#521e12",
+                      fontFamily: "Exo",
+                      fontSize: "1rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    QTD
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      color: "#521e12",
+                      fontFamily: "Exo",
+                      fontSize: "1rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    SUBTOTAL
+                  </TableCell>
                 </TableRow>
-                </TableHead>
-                <TableBody>
+              </TableHead>
+              <TableBody border="1px solid ">
                 {venda.itens.map((item, i) => (
-                    <TableRow
-                    key={i}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                    <TableCell component="th" scope="item">
-                        <img width="32" height="32" src={item.urlFoto} alt={item.nome}/>
+                  <TableRow key={i}>
+                    <TableCell component="th" scope="item" align="center">
+                      <img
+                        src={item.urlFoto}
+                        alt={item.nome}
+                        style={{
+                          borderRadius: "50%",
+                          width: "80px",
+                          height: "80px",
+                        }}
+                      />
                     </TableCell>
-                    <TableCell align="right">{item.nome}</TableCell>
-                    <TableCell align="right">{item.quantidade}</TableCell>
-                    <TableCell align="right">{priceFormat(item.subtotal)}</TableCell>
-                    </TableRow>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        color: "#521e12",
+                        fontFamily: "Exo",
+                        fontSize: "1rem",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {item.nome}
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        color: "#521e12",
+                        fontFamily: "Exo",
+                        fontSize: "1rem",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {item.quantidade}
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        color: "#521e12",
+                        fontFamily: "Exo",
+                        fontSize: "1rem",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {priceFormat(item.subtotal)}
+                    </TableCell>
+                  </TableRow>
                 ))}
-                </TableBody>
+              </TableBody>
             </Table>
-            <Typography id="comprador" variant="h6" component="h2">
-                {venda.endereco}
-            </Typography>
-            </Box>
-        : <Typography id="comprador" variant="h6" component="h2">
+            <div className="modal-endereco">
+              <Typography
+                id="comprador"
+                variant="h6"
+                component="h2"
+                sx={{
+                  fontFamily: "Exo",
+                  fontSize: "1rem",
+                  fontWeight: "bold",
+                }}
+              >
+                Endereço: {venda.endereco}
+              </Typography>
+            </div>
+          </Box>
+        ) : (
+          <Typography
+            id="comprador"
+            sx={{
+              minHeight: "50px",
+              width: "200px",
+              background: "#4a5926",
+              borderRadius: "5px",
+              border: "1px solid #4a5926",
+              color: "#ffffff",
+              fontFamily: "Exo",
+              fontSize: "1rem",
+              margin: "auto",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            variant="h6"
+            component="h2"
+          >
             Carregando...
           </Typography>
-        }
-        </div> 
+        )}
+      </div>
     </Modal>
+  );
 }
 
 export default DetalhesVenda;
