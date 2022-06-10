@@ -6,7 +6,6 @@ import InputSearch from 'components/InputSearch';
 import {MdEdit} from "react-icons/md"
 import { BsCheckCircleFill } from "react-icons/bs";
 import { MdCancel } from "react-icons/md";
-import '../List/ListProduto.css';
 
 import {
   TableContainer,
@@ -66,6 +65,7 @@ function ProdutoList() {
 
   }
   const [produto, setProduto] = useState([]);
+
   useEffect(() => {
     api
       .get("/produto")
@@ -80,7 +80,7 @@ function ProdutoList() {
         setFilter(text);
     }
 
-  return (<div className='pg secao'>
+  return (<div className='pg-container'>
   <div className="secao"> 
   <section className='secao-produtos'>
   <ListHeader paginaAtual="produtos" onClick={handleClick}/>
