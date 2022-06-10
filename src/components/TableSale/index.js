@@ -16,6 +16,7 @@ import {
 
 import { BsCheckCircleFill } from "react-icons/bs";
 import { MdVisibility, MdCancel } from "react-icons/md";
+import DetalhesVenda from "components/DetalhesVenda";
 
 const columns = [
   { id: "cpf", label: "CPF", minWidth: 100 },
@@ -47,6 +48,8 @@ export default function TableSales(filter) {
   const [vendas, setVendas] = useState([]);
   const [filtro, setFiltro] = useState([]);
   const [cancelar, setCancelar] = useState(false);
+  const [modalEstaAberto, setModalEstaAberto] = useState(false);
+  const [idVendaDetalhada, setIdVendaDetalhada] = useState(0);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -67,6 +70,15 @@ export default function TableSales(filter) {
     //se desistir retornar
   };
 
+  function handleAbrirModal(idVenda){
+    setIdVendaDetalhada(idVenda);
+    setModalEstaAberto(true);
+  }
+
+  function handleFecharModal(){
+    setModalEstaAberto(false);
+  }
+
   function defaultLabelDisplayedRows({ from, to, count }) {
     return `${from}–${to} de ${count !== -1 ? count : `mais ${to}`}`;
   }
@@ -79,6 +91,7 @@ export default function TableSales(filter) {
   }, []);
 
   console.log(vendas)
+  console.log(idVendaDetalhada)
 
   return (
     <Paper elevation={3} className="secao tabela">
@@ -106,13 +119,13 @@ export default function TableSales(filter) {
           </TableHead>
           <TableBody>
             {vendas
-              .filter((venda) => {
-                if (filter === "") {
-                  return venda;
-                } else if (filter !== ""){
-                  return venda.nomeCliente.toLowerCase().includes(filter);
-                }
-              })
+              // .filter((venda) => {
+              //   if (filter === "") {
+              //     return venda;
+              //   } else if (filter !== ""){
+              //     return venda.nomeCliente.toLowerCase().includes(filter);
+              //   }
+              // })
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((venda) => {
                 return (
@@ -154,6 +167,7 @@ export default function TableSales(filter) {
                           sx={{
                             ":hover": { background: "#C4CAAF" },
                           }}
+                          onClick={(id) => handleAbrirModal(venda.id)}
                         >
                           <abbr title="Visualizar Venda">
                             <MdVisibility size={"18px"} color={"#D06618"} />
@@ -167,6 +181,7 @@ export default function TableSales(filter) {
                             sx={{
                               ":hover": { background: "#C4CAAF" },
                             }}
+                            onClick={(id) => handleAbrirModal(venda.id)}
                           >
                             <abbr title="Visualizar Venda">
                               <MdVisibility size={"18px"} color={"#D06618"} />
@@ -216,6 +231,11 @@ export default function TableSales(filter) {
         labelRowsPerPage="Vendas por página"
         labelDisplayedRows={defaultLabelDisplayedRows}
       />
+      {modalEstaAberto && <DetalhesVenda 
+        aberto={modalEstaAberto}
+        handleFechar={handleFecharModal}
+        idVenda={idVendaDetalhada}
+      />}
     </Paper>
   );
 }
