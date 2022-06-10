@@ -5,7 +5,7 @@
     background: #C4CAAF;
     justify-content: center;
     width: 100%;
-    height: auto;
+    border-radius: 10px;
 }
 .secao-produtos {
     width: 800px;
