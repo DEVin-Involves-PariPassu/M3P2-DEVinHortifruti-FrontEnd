@@ -18,10 +18,12 @@ import {
   Paper,
   IconButton,
 } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
 
 
 const columns = [
-  { id: "1", label: "PRODUTO", minWidth: 100 },
+  { id: "1", label: "ID", minWidth: 60 },
+  { id: "nome", label: "PRODUTO", minWidth: 100 },
   { id: "valor", label: "VALOR", minWidth: 100 },
   {
     id: "status",
@@ -39,6 +41,13 @@ const columns = [
 ];
 
 function ProdutoList() {
+
+  let navigate = useNavigate();
+  function handleClick(){
+    navigate(
+      "/produtos/novo"
+    )
+  }
 
   const [busca, setBusca] = useState('');
   const onChange = (event) => {
@@ -59,10 +68,11 @@ function ProdutoList() {
   const [produto, setProduto] = useState([]);
   useEffect(() => {
     api
-      .get("/produtos")
-      .then((response) => setProduto(response.data))
+      .get("/produto")
+      .then((response) => setProduto(response.data.content))
       .catch(() => alert('Houve um problema ao buscar os dados!'));
   }, []);
+  console.log(produto);
 
   const [filter, setFilter] = useState([]);
     const handleChange = (event) => {
@@ -73,7 +83,7 @@ function ProdutoList() {
   return (<>
   <div className="secao"> 
   <section className='secao-produtos'>
-  <ListHeader paginaAtual="produtos" onClick={""}/>
+  <ListHeader paginaAtual="produtos" onClick={handleClick}/>
   <InputSearch placeholder={"Buscar por produto..."} onChange={""}/>
 
 <Paper elevation={3} className="secao tabela">
@@ -94,16 +104,17 @@ function ProdutoList() {
           </TableHead>
           <TableBody sx={{ maxHeight: 600, color: '#36A23F'}} >
             {produto
-              .map(({ id, nome, precoSugerido, isAtivo }) => {
+              .map(({ id, nome, precoSugerido, ativo }) => {
                 return (
                   <TableRow key={id} hover role="checkbox" tabIndex={-1}>
+                    <TableCell style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>{id}</TableCell>
                     <TableCell style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>{nome}</TableCell>
                     <TableCell style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>{precoSugerido}</TableCell>
                     <TableCell align="center" style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>
-                      {isAtivo === true && <abbr title="Ativo">
+                      {ativo === true && <abbr title="Ativo">
                         <BsCheckCircleFill color='#36A23F'/>                        
                           </abbr>}
-                      {isAtivo === false && (                                      
+                      {ativo === false && (                                      
                           <abbr title="Inativo"><MdCancel color="#521E12" size="16px"/>
                           </abbr>        
                       )}
