@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from "react";
 import "./TableSale.css";
-import axios from "axios";
 import api from "utils/api";
 
 import {
@@ -49,7 +48,6 @@ export default function TableSales(filter) {
   const [filtro, setFiltro] = useState([]);
   const [cancelar, setCancelar] = useState(false);
 
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -59,85 +57,28 @@ export default function TableSales(filter) {
     setPage(0);
   };
 
-  const handleCancel = (event)=>{
-    if(event){
-      alert('Deseja mesmo cancelar a venda?')
+  const handleCancel = (event) => {
+    if (event) {
+      alert("Deseja mesmo cancelar a venda?");
       // se confirmar atualizar venda para cancelada
       setCancelar(true);
-      //atualizar data.vendaCancelada === "true" e renderizar os ícones de forma diferente
+      //atualizar data.vendaCancelada === true e renderizar os ícones de forma diferente
     }
-    //se desistir retornar   
-  }
+    //se desistir retornar
+  };
 
   function defaultLabelDisplayedRows({ from, to, count }) {
     return `${from}–${to} de ${count !== -1 ? count : `mais ${to}`}`;
   }
 
-  const data = [
-    {
-      id: 1,
-      cpf: "12345678910",
-      nomeCliente: "Daiana",
-      totalVenda: "R$ 1476,99",
-      vendaCancelada: "false",
-    },
-    {
-      id: 2,
-      cpf: "10254886523",
-      nomeCliente: "Diego",
-      totalVenda: "R$ 10599,85",
-      vendaCancelada: "false",
-    },
-    {
-      id: 3,
-      cpf: "01865932114",
-      nomeCliente: "Kaly",
-      totalVenda: "R$ 3625,00",
-      vendaCancelada: "false",
-    },
-    {
-      id: 4,
-      cpf: "56980174722",
-      nomeCliente: "Cris",
-      totalVenda: "R$ 453,97",
-      vendaCancelada: "true",
-    },
-    {
-      id: 5,
-      cpf: "11247896531",
-      nomeCliente: "Camilla",
-      totalVenda: "R$ 1006,85",
-      vendaCancelada: "true",
-    },
-    {
-      id: 6,
-      cpf: "45812174722",
-      nomeCliente: "Lucas",
-      totalVenda: "R$ 5355,70",
-      vendaCancelada: "false",
-    },
-    {
-      id: 7,
-      cpf: "51332556531",
-      nomeCliente: "Layla",
-      totalVenda: "R$ 600,45",
-      vendaCancelada: "false",
-    },
-    {
-      id: 8,
-      cpf: "45812174722",
-      nomeCliente: "Lucas",
-      totalVenda: "R$ 5355,70",
-      vendaCancelada: "false",
-    },
-  ];
+  useEffect(() => {
+    api
+      .get("/vendas")
+      .then((response) => setVendas(response.data.vendas))
+      .catch(() => alert("Houve um problema ao buscar os dados!"));
+  }, []);
 
-  // useEffect(() => {
-  //   api
-  //     .get('/vendas')
-  //     .then((response) => setVendas(response.data))
-  //     .catch(() => alert('Houve um problema ao buscar os dados!'));
-  // }, []);
+  console.log(vendas)
 
   return (
     <Paper elevation={3} className="secao tabela">
@@ -164,19 +105,18 @@ export default function TableSales(filter) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* {vendas */}
-            {data
-              .filter((data) => {
-                if (filter !== "") {
-                  return data;
+            {vendas
+              .filter((venda) => {
+                if (filter === "") {
+                  return venda;
                 } else if (filter !== ""){
-                  return data.nomeCliente.toLowerCase().includes(filter);
+                  return venda.nomeCliente.toLowerCase().includes(filter);
                 }
               })
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((data) => {
+              .map((venda) => {
                 return (
-                  <TableRow key={data.id} hover role="checkbox" tabIndex={-1}>
+                  <TableRow key={venda.id} hover role="checkbox" tabIndex={-1}>
                     <TableCell
                       style={{
                         color: "#4A5926",
@@ -185,7 +125,7 @@ export default function TableSales(filter) {
                         fontWeight: "bold",
                       }}
                     >
-                      {data.cpf}
+                      {venda.cpf}
                     </TableCell>
                     <TableCell
                       style={{
@@ -195,7 +135,7 @@ export default function TableSales(filter) {
                         fontWeight: "bold",
                       }}
                     >
-                      {data.nomeCliente}
+                      {venda.nomeCliente}
                     </TableCell>
                     <TableCell
                       style={{
@@ -205,10 +145,10 @@ export default function TableSales(filter) {
                         fontWeight: "bold",
                       }}
                     >
-                      {data.totalVenda}
+                      {venda.totalVenda}
                     </TableCell>
                     <TableCell align="center">
-                      {data.vendaCancelada === "true" && (
+                      {venda.vendaCancelada === true && (
                         <IconButton
                           aria-label="Visualizar"
                           sx={{
@@ -220,14 +160,13 @@ export default function TableSales(filter) {
                           </abbr>
                         </IconButton>
                       )}
-                      {data.vendaCancelada === "false" && (
+                      {venda.vendaCancelada === false && (
                         <>
                           <IconButton
                             aria-label="Visualizar"
                             sx={{
                               ":hover": { background: "#C4CAAF" },
                             }}
-                            
                           >
                             <abbr title="Visualizar Venda">
                               <MdVisibility size={"18px"} color={"#D06618"} />
@@ -248,12 +187,12 @@ export default function TableSales(filter) {
                       )}
                     </TableCell>
                     <TableCell align="center">
-                      {data.vendaCancelada === "true" && (
+                      {venda.vendaCancelada === true && (
                         <abbr title="Venda Cancelada">
                           <MdCancel size={"18px"} color={"#521E12"} />
                         </abbr>
                       )}
-                      {data.vendaCancelada === "false" && (
+                      {venda.vendaCancelada === false && (
                         <abbr title="Venda Ativa">
                           <BsCheckCircleFill size={"15px"} color={"#36A23F"} />
                         </abbr>
@@ -269,7 +208,7 @@ export default function TableSales(filter) {
         rowsPerPageOptions={[5, 10]}
         component="div"
         sx={{ color: "#4A5926", fontFamily: "Exo" }}
-        count={data.length}
+        count={vendas.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
