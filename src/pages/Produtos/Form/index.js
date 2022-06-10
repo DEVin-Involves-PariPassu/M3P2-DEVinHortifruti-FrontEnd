@@ -1,6 +1,7 @@
 import React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import {
   TextField,
@@ -11,6 +12,9 @@ import {
 } from '@mui/material';
 
 function ProdutoForm() {
+  const parans = useParams();
+  const navigate = useNavigate();
+
   const [url, setUrl] = useState('');
   const [nome, setNome] = useState('');
   const [preco, setPreco] = useState(0);
@@ -20,22 +24,55 @@ function ProdutoForm() {
   const handleSubmitProduto = (event) => {
     event.preventDefault();
 
-    axios
-      .post('http://localhost:8081/produtos/', {
-        url: url,
-        nome: nome,
-        preco: preco,
-        descricao: descricao,
-      })
-      .then(() => {
-        alert('Produto cadastrado com sucesso!');
-      })
-      .catch(() => {
-        alert(
-          'Ocorreu um erro ao cadastrar o produto! Entre em contato com o administrador do sistema.'
-        );
-      });
+    if (parans.id) {
+      axios
+        .put(`http://localhost:8081/produtos/${parans.id}`, {
+          url: url,
+          nome: nome,
+          preco: preco,
+          descricao: descricao,
+        })
+        .then(() => {
+          alert('Produto atualizado com sucesso!');
+          navigate('/produtos');
+        })
+        .catch(() => {
+          alert(
+            'Ocorreu um erro ao atualizar o produto! Entre em contato com o administrador do sistema.'
+          );
+        });
+    } else {
+      axios
+        // .post('http://localhost:8081/produtos/novo',{
+        .post('http://localhost:8081/produtos/', {
+          url: url,
+          nome: nome,
+          preco: preco,
+          descricao: descricao,
+        })
+        .then(() => {
+          alert('Produto cadastrado com sucesso!');
+        })
+        .catch(() => {
+          alert(
+            'Ocorreu um erro ao cadastrar o produto! Entre em contato com o administrador do sistema.'
+          );
+        });
+    }
   };
+
+  useEffect(() => {
+    if (parans.id) {
+      axios
+        .get(`http://localhost:8081/produtos/${parans.id}`)
+        .then((response) => {
+          setUrl(response.data.url);
+          setNome(response.data.nome);
+          setPreco(response.data.preco);
+          setDescricao(response.data.descricao);
+        });
+    }
+  }, [parans]);
 
   return (
     <div className="container">
@@ -84,6 +121,7 @@ function ProdutoForm() {
         </FormGroup>
         <div className="form-action">
           <Button
+            onClick={() => navigate('/produtos')}
             variant="contained"
             color="warning"
             sx={{ fontFamily: 'Exo' }}
@@ -96,7 +134,7 @@ function ProdutoForm() {
             color="variant"
             sx={{ fontFamily: 'Exo' }}
           >
-            Cadastrar
+            {parans.id ? 'Atualizar' : 'Cadastrar'}
           </Button>
         </div>
       </form>
