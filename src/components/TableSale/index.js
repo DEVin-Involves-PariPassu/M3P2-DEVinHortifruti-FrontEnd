@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import "./TableSale.css";
 import api from "utils/api";
+import { priceFormat } from 'utils/priceFormat';
 
 import {
   TableContainer,
@@ -158,7 +159,7 @@ export default function TableSales(filter) {
                         fontWeight: "bold",
                       }}
                     >
-                      {venda.totalVenda}
+                    {priceFormat(venda.totalVenda)}
                     </TableCell>
                     <TableCell align="center">
                       {venda.vendaCancelada === true && (
