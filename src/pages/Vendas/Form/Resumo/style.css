@@ -1,0 +1,14 @@
+.cabecalho {
+  margin-top: 25px;
+}
+
+.rodape {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  height: 40px;
+}
+
+.rodape h1 {
+  margin: auto 0;
+}
