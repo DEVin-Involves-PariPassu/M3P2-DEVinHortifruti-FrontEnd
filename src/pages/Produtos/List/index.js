@@ -70,7 +70,7 @@ function ProdutoList() {
         setFilter(text);
     }
 
-  return (<>
+  return (<div className='pg secao'>
   <div className="secao"> 
   <section className='secao-produtos'>
   <ListHeader paginaAtual="produtos" onClick={""}/>
@@ -121,6 +121,6 @@ function ProdutoList() {
     </Paper>
     </section>
     </div>
-    </>);}
+    </div>);}
 
 export default ProdutoList;
