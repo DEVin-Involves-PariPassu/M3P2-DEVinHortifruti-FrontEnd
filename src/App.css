@@ -90,3 +90,15 @@ h3 {
   margin-left: 30px;
   text-align: center;
 }
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.switch-control {
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px;
+}
