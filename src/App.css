@@ -23,6 +23,9 @@ background-color: var(--verde-secundario);
 
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  border:0;
 }
 
 h1 {
@@ -49,9 +52,19 @@ h3 {
   padding: 20px;
 }
 
-/* - LISTA DE USUÁRIOS - */
+/* PÁGINAS DE LISTAGEM DE PRODUTOS, USUÁRIOS E VENDAS */
 
-.secao-usuarios {
+.secao {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: var(--verde-secundario);
+  justify-content: center;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.secao-usuarios, .secao-produtos, .secao.vendas {
   width: 800px;
   display: flex;
   flex-direction: column;

@@ -1,5 +1,4 @@
 import { React, useState } from "react";
-import "./ListSale.css";
 
 import TableSale from "../../../components/TableSale";
 import ListHeader from "../../../components/ListHeader";
@@ -25,7 +24,7 @@ function VendaList() {
   };
 
   return (
-    <div className="pg secao">
+    <div className="pg-container">
       <div className="secao">
         <section className="secao vendas">
           <ListHeader paginaAtual="vendas" onClick={handleClick}></ListHeader>
