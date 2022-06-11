@@ -15,9 +15,9 @@ function ProdutoForm() {
   const parans = useParams();
   const navigate = useNavigate();
 
-  const [url, setUrl] = useState('');
+  const [urlFoto, setUrlFoto] = useState('');
   const [nome, setNome] = useState('');
-  const [preco, setPreco] = useState(0);
+  const [precoSugerido, setPrecoSugerido] = useState(0);
   const [descricao, setDescricao] = useState('');
   const [status, setStatus] = useState(true);
 
@@ -26,11 +26,12 @@ function ProdutoForm() {
 
     if (parans.id) {
       api
-        .put(`http://localhost:8081/produtos/${parans.id}`, {
-          url: url,
+        .put(`http://localhost:8081/produto/${parans.id}`, {
+          urlFoto: urlFoto,
           nome: nome,
-          preco: preco,
+          precoSugerido: precoSugerido,
           descricao: descricao,
+          isAtivo: status,
         })
         .then(() => {
           alert('Produto atualizado com sucesso!');
@@ -43,15 +44,16 @@ function ProdutoForm() {
         });
     } else {
       api
-        // .post('http://localhost:8081/produto/novo/',{
-        .post('http://localhost:8081/produto/', {
-          url: url,
+        .post('http://localhost:8081/produto', {
+          urlFoto: urlFoto,
           nome: nome,
-          preco: preco,
+          precoSugerido: precoSugerido,
           descricao: descricao,
+          isAtivo: status,
         })
         .then(() => {
           alert('Produto cadastrado com sucesso!');
+          navigate('/produtos');
         })
         .catch(() => {
           alert(
@@ -64,10 +66,11 @@ function ProdutoForm() {
   useEffect(() => {
     if (parans.id) {
       api.get(`http://localhost:8081/produto/${parans.id}`).then((response) => {
-        setUrl(response.data.url);
+        setUrlFoto(response.data.urlFoto);
         setNome(response.data.nome);
-        setPreco(response.data.preco);
+        setPrecoSugerido(response.data.precoSugerido);
         setDescricao(response.data.descricao);
+        setStatus(response.data.isAtivo);
       });
     }
   }, [parans]);
@@ -78,14 +81,14 @@ function ProdutoForm() {
         <h1>Novo produto</h1>
       </div>
       <form className="form-produto" onSubmit={handleSubmitProduto}>
-        {url && <img width="270px" src={url} alt="Imagem do produto" />}
+        {urlFoto && <img width="270px" src={urlFoto} alt="Imagem do produto" />}
         <TextField
           sx={{ background: '#fff', borderRadius: '5px 5px 0px 0px' }}
           label="URL do produto"
           variant="filled"
           type="url"
-          value={url}
-          onChange={(event) => setUrl(event.target.value)}
+          value={urlFoto}
+          onChange={(event) => setUrlFoto(event.target.value)}
         />
         <TextField
           sx={{ background: '#fff', borderRadius: '5px 5px 0px 0px' }}
@@ -100,8 +103,8 @@ function ProdutoForm() {
           variant="filled"
           type="number"
           min="0.1"
-          value={preco}
-          onChange={(event) => setPreco(event.target.value)}
+          value={precoSugerido}
+          onChange={(event) => setPrecoSugerido(event.target.value)}
         />
         <TextField
           sx={{ background: '#fff', borderRadius: '5px 5px 0px 0px' }}
