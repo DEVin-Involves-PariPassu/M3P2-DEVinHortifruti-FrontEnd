@@ -23,17 +23,20 @@ background-color: var(--verde-secundario);
 
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 
 h1 {
   color: var(--marrom-apoio);
-  font-family: "Squada One", cursive;
+  font-family: 'Squada One', cursive;
   font-weight: lighter;
   font-size: 2.7rem;
 }
 
 h3 {
-  font-family: "Exo", sans-serif;
+  font-family: 'Exo', sans-serif;
 }
 
 .pg-container {
@@ -49,13 +52,130 @@ h3 {
   padding: 20px;
 }
 
-/* - LISTA DE USUÁRIOS - */
+/* HEADER */
 
-.secao-usuarios {
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid var(--verde-apoio);
+  margin-bottom: 50px;
+  padding: 1% 10% 1% 6%;
+  background-color: var(--verde-primario);
+}
+.white-logo {
+  margin-left: 5%;
+  cursor: pointer;
+}
+
+.btn-logout {
+  background-color: transparent;
+  color: white;
+  border-radius: 50%;
+  padding-left: 10px;
+  margin-right: 4%;
+}
+
+.btn-logout:hover {
+  background-color: var(--verde-apoio);
+  border-radius: 10px;
+  padding: 5px;
+}
+
+/* PÁGINAS DE LISTAGEM DE PRODUTOS, USUÁRIOS E VENDAS */
+
+.secao {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: var(--verde-secundario);
+  justify-content: center;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.secao-usuarios,
+.secao-produtos,
+.secao.vendas {
   width: 800px;
   display: flex;
   flex-direction: column;
   gap: 2.7rem;
   margin-top: 3rem;
   margin-bottom: 4.5rem;
+}
+
+/* SIDEBAR */
+
+.logo-sidebar {
+  background-image: url('assets/logo4_colorida.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  width: 150px;
+  height: 100px;
+  margin-top: 30px;
+  margin-left: 50px;
+}
+
+.sidebar {
+  background-color: var(--verde-primario);
+  color: white;
+  height: 100%;
+}
+.sidebar span {
+  font-family: 'Squada One', cursive;
+  font-weight: lighter;
+  font-size: 18pt;
+  text-align: center;
+}
+.sidebar svg {
+  color: white;
+  font-size: 20pt;
+  margin-left: 30px;
+  text-align: center;
+}
+
+/* USUÁRIO FORM */
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.switch-control {
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px;
+}
+/* PÁGINA DE CADASTROS DE PRODUTOS */
+
+.title-produto {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 800px;
+  margin: 30px;
+}
+
+.form-produto {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 auto;
+  width: 800px;
+}
+
+.form-produto img {
+  align-self: center;
+  border-radius: 50%;
+}
+
+.form-action {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }

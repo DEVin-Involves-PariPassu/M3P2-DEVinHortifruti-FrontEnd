@@ -1,22 +1,19 @@
-.container {
+.cabecalho {
+  margin-bottom: 25px;
+}
+
+.containerTabela {
   width: 50%;
   height: auto;
   margin: 50px auto 0 auto;
-}
-
-.rodape {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  height: 40px;
-}
-
-.rodape h1 {
-  margin: auto 0;
 }
 
 .imagemProduto {
   width: 70px;
   height: 70px;
   border-radius: 50%;
+}
+
+.itemTabela {
+  vertical-align: middle;
 }

@@ -1,3 +1,4 @@
+import React from "react";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { MdOutlineAddBusiness } from "react-icons/md";
@@ -7,20 +8,14 @@ import { MdOutlinePostAdd } from "react-icons/md";
 function ListHeader({ paginaAtual, onClick }) {
   return (
     <Stack
-      justifyContent={"space-between"}
       direction="row"
       alignItems={"center"}
       width={"100%"}
+      justifyContent={"space-between"}
     >
-      {paginaAtual === "vendas" && (
-        <h1 className="title">Vendas Cadastradas </h1>
-      )}
-      {paginaAtual === "produtos" && (
-        <h1 className="title">Produtos Cadastrados </h1>
-      )}
-      {paginaAtual === "usuarios" && (
-        <h1 className="title">Usuários Cadastrados </h1>
-      )}
+      {paginaAtual === "vendas" && <h1>Vendas Cadastradas</h1>}
+      {paginaAtual === "produtos" && <h1>Produtos Cadastrados</h1>}
+      {paginaAtual === "usuarios" && <h1>Usuários Cadastrados</h1>}
 
       <Button
         variant="contained"
@@ -33,7 +28,9 @@ function ListHeader({ paginaAtual, onClick }) {
           justifyContent: "space-around",
           fontFamily: "Exo",
           fontSize: "0.7rem",
-          borderRadius: "10px"
+          borderRadius: "10px",
+          paddingTop: "15px",
+          paddingBottom: "15px",
         }}
       >
         {paginaAtual === "vendas" && (
