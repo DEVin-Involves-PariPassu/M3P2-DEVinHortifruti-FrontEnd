@@ -1,4 +1,8 @@
 import { React, useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import { registerLocale, setDefaultLocale } from  "react-datepicker";
+import ptBR from 'date-fns/locale/pt-BR';
+import "react-datepicker/dist/react-datepicker.css";
 import "./styles.css";
 
 // import { Container } from './styles';
@@ -11,7 +15,10 @@ function DadosEntrega() {
   const [numero, setNumero] = useState([]);
   const [bairro, setBairro] = useState([]);
   const [complemento, setComplemento] = useState([]);
-  const [dataEntrega, setDataEntrega] = useState([]);
+  const [startDate, setStartDate] = useState(null);
+
+  registerLocale('pt', ptBR)
+  setDefaultLocale('pt');
 
   const handleChangeCEP = (event) => {
     const { value } = event.target;
@@ -21,11 +28,6 @@ function DadosEntrega() {
   const handleChangeNumero = (event) => {
     const { value } = event.target;
     setNumero(value);
-  };
-
-  const handleChangeDataEntrega = (event) => {
-    const { value } = event.target;
-    setDataEntrega(value);
   };
 
   const handleChangeComplemento = (event) => {
@@ -56,6 +58,7 @@ function DadosEntrega() {
       event.preventDefault();
       event.target.checkValidity();
 
+      console.log(startDate)
       if (!CEP) {
         alert("CEP é obrigatório");
         return;
@@ -68,11 +71,6 @@ function DadosEntrega() {
 
       if (!numero) {
         alert("Número é obrigatório");
-        return;
-      }
-
-      if (!dataEntrega) {
-        alert("Data de entrega é obrigatório");
         return;
       }
     } catch {}
@@ -135,13 +133,8 @@ function DadosEntrega() {
           onChange={handleChangeComplemento}
         ></input>
         <label>Data de entrega:</label>
-        <input
-          type="text"
-          name="dataentrega"
-          value={dataEntrega}
-          onChange={handleChangeDataEntrega}
-          required
-        ></input>
+        <DatePicker id="dataEntrega" locale={"pt"} placeholderText="Data de Entrega" selected={startDate} onChange={(date) => setStartDate(date)} dateFormat="dd/MM/yyyy" />
+        
         <input className="sendLog" type="submit" value="Enviar" />
       </form>
       </div>
