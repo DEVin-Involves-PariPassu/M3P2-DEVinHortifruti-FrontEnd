@@ -78,7 +78,7 @@ function ProdutoForm() {
   return (
     <div className="pg-container">
       <div className="title-produto">
-        <h1>Novo produto</h1>
+        <h1>{parans.id ? 'Atualizar Produto' : 'Novo Produto'}</h1>
       </div>
       <form className="form-produto" onSubmit={handleSubmitProduto}>
         {urlFoto && <img width="270px" src={urlFoto} alt="Imagem do produto" />}
