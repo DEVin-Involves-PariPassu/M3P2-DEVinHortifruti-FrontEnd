@@ -18,6 +18,7 @@ background-color: var(--verde-secundario);
   --laranja-primario: #f59b16;
   --laranja-secundario: #d06618;
   --marrom-apoio: #521e12;
+  text-align: -webkit-center;
 }
 
 * {
@@ -115,4 +116,34 @@ h3 {
   display: flex;
   justify-content: flex-start;
   margin: 10px;
+}
+/* PÁGINA DE CADASTROS DE PRODUTOS */
+
+.title-produto {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 800px;
+  margin: 30px;
+}
+
+.form-produto {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 auto;
+  width: 800px;
+}
+
+.form-produto img {
+  align-self: center;
+  border-radius: 50%;
+}
+
+.form-action {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }

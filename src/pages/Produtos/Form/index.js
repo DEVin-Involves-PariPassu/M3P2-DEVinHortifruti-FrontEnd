@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import api from 'utils/api';
 
 import {
   TextField,
@@ -25,7 +25,7 @@ function ProdutoForm() {
     event.preventDefault();
 
     if (parans.id) {
-      axios
+      api
         .put(`http://localhost:8081/produtos/${parans.id}`, {
           url: url,
           nome: nome,
@@ -42,9 +42,9 @@ function ProdutoForm() {
           );
         });
     } else {
-      axios
-        // .post('http://localhost:8081/produtos/novo',{
-        .post('http://localhost:8081/produtos/', {
+      api
+        // .post('http://localhost:8081/produto/novo/',{
+        .post('http://localhost:8081/produto/', {
           url: url,
           nome: nome,
           preco: preco,
@@ -63,20 +63,20 @@ function ProdutoForm() {
 
   useEffect(() => {
     if (parans.id) {
-      axios
-        .get(`http://localhost:8081/produtos/${parans.id}`)
-        .then((response) => {
-          setUrl(response.data.url);
-          setNome(response.data.nome);
-          setPreco(response.data.preco);
-          setDescricao(response.data.descricao);
-        });
+      api.get(`http://localhost:8081/produto/${parans.id}`).then((response) => {
+        setUrl(response.data.url);
+        setNome(response.data.nome);
+        setPreco(response.data.preco);
+        setDescricao(response.data.descricao);
+      });
     }
   }, [parans]);
 
   return (
-    <div className="container">
-      <h1 className="title-produto">Novo produto</h1>
+    <div className="pg-container">
+      <div className="title-produto">
+        <h1>Novo produto</h1>
+      </div>
       <form className="form-produto" onSubmit={handleSubmitProduto}>
         {url && <img width="270px" src={url} alt="Imagem do produto" />}
         <TextField
