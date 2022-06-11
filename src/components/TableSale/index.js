@@ -61,15 +61,20 @@ export default function TableSales(filter) {
     setPage(0);
   };
 
-  const handleCancel = (event) => {
-    if (event) {
-      alert("Deseja mesmo cancelar a venda?");
-      // se confirmar atualizar venda para cancelada
-      setCancelar(true);
-      //atualizar data.vendaCancelada === true e renderizar os ícones de forma diferente
+  const handleCancel = () => {
+      let confirmacao = window.confirm("Deseja mesmo cancelar a venda?");
+      console.log(confirmacao)
+      if(confirmacao === true){
+        setCancelar(true);  
+        //atualizar data.vendaCancelada === true e renderizar os ícones de forma diferente
+      }
+      else if (confirmacao === false ){
+        setCancelar(false)
+      }
+     
     }
-    //se desistir retornar
-  };
+
+
 
   function handleAbrirModal(idVenda){
     setIdVendaDetalhada(idVenda);
