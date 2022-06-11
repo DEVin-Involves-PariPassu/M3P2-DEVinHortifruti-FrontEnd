@@ -25,18 +25,18 @@ background-color: var(--verde-secundario);
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  border:0;
+  border: 0;
 }
 
 h1 {
   color: var(--marrom-apoio);
-  font-family: "Squada One", cursive;
+  font-family: 'Squada One', cursive;
   font-weight: lighter;
   font-size: 2.7rem;
 }
 
 h3 {
-  font-family: "Exo", sans-serif;
+  font-family: 'Exo', sans-serif;
 }
 
 .pg-container {
@@ -64,7 +64,9 @@ h3 {
   border-radius: 10px;
 }
 
-.secao-usuarios, .secao-produtos, .secao.vendas {
+.secao-usuarios,
+.secao-produtos,
+.secao.vendas {
   width: 800px;
   display: flex;
   flex-direction: column;
@@ -76,7 +78,7 @@ h3 {
 /* SIDEBAR */
 
 .logo-sidebar {
-  background-image: url("assets/logo4_colorida.png");
+  background-image: url('assets/logo4_colorida.png');
   background-size: contain;
   background-repeat: no-repeat;
   border: none;
@@ -92,7 +94,7 @@ h3 {
   height: 100%;
 }
 .sidebar span {
-  font-family: "Squada One", cursive;
+  font-family: 'Squada One', cursive;
   font-weight: lighter;
   font-size: 18pt;
   text-align: center;
@@ -114,4 +116,34 @@ h3 {
   display: flex;
   justify-content: flex-start;
   margin: 10px;
+}
+/* PÁGINA DE CADASTROS DE PRODUTOS */
+
+.title-produto {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 800px;
+  margin: 30px;
+}
+
+.form-produto {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 auto;
+  width: 800px;
+}
+
+.form-produto img {
+  align-self: center;
+  border-radius: 50%;
+}
+
+.form-action {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
