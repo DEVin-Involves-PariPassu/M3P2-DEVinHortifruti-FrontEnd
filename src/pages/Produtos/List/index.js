@@ -6,6 +6,7 @@ import InputSearch from 'components/InputSearch';
 import {MdEdit} from "react-icons/md"
 import { BsCheckCircleFill } from "react-icons/bs";
 import { MdCancel } from "react-icons/md";
+import { priceFormat } from 'utils/priceFormat';
 
 import {
   TableContainer,
@@ -72,7 +73,6 @@ function ProdutoList() {
       .then((response) => setProduto(response.data.content))
       .catch(() => alert('Houve um problema ao buscar os dados!'));
   }, []);
-  console.log(produto);
 
   const [filter, setFilter] = useState([]);
     const handleChange = (event) => {
@@ -109,7 +109,7 @@ function ProdutoList() {
                   <TableRow key={id} hover role="checkbox" tabIndex={-1}>
                     <TableCell style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>{id}</TableCell>
                     <TableCell style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>{nome}</TableCell>
-                    <TableCell style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>{precoSugerido}</TableCell>
+                    <TableCell style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>{priceFormat(precoSugerido)}</TableCell>
                     <TableCell align="center" style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>
                       {ativo === true && <abbr title="Ativo">
                         <BsCheckCircleFill color='#36A23F'/>                        
@@ -120,7 +120,7 @@ function ProdutoList() {
                       )}
                     </TableCell>
                     <TableCell align="center" style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>
-                    <abbr title = "Editar produto"><IconButton sx={{':hover':{background:'#C4CAAF'}}}><MdEdit color='#D06618'className='botao-editar'/></IconButton></abbr>
+                    <abbr title = "Editar produto"><IconButton onClick={() => navigate(`/produtos/${id}`)} sx={{':hover':{background:'#C4CAAF'}}}><MdEdit color='#D06618'className='botao-editar'/></IconButton></abbr>
                 
                     </TableCell>
                   </TableRow>
