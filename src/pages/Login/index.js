@@ -12,36 +12,52 @@ import {
   UserFormInput,
 } from "../../pages/Login/login.elements";
 import Logo from "../../assets/logo1_colorida.png";
+import { useRecoilState } from 'recoil';
+import { authState, signed } from 'store/modules/auth/recoil';
+import api from 'utils/api';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 
 // import { Container } from './styles';
 
 function Login() {
-    //const navigate = useNavigate();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+    const [login, setLogin] = useState("");
+    const [senha, setSenha] = useState("");
+
+    const [authToken, setAuthToken] = useRecoilState(authState);
+    const [logado, setlogado] = useRecoilState(signed);
+
+  async function fazerLogin(login, senha) {
+      const response = await api.post(`/login`, {
+      login: login,
+      senha: senha
+    });
+    const { token } = await response.data;
+    return token;
+  }
   
     const handleSubmit = async (event) => {
       event.preventDefault();
       try {
-        if (!email) {
-          alert("Por favor insira um e-mail");
+        if (!login) {
+          alert("Por favor insira seu login");
           return;
-        } else if (
-          !email.match(
-            /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-          )
-        ) {
-          alert("Email inválido. Por favor tente novamente.");
-          return;
-        }else if (password === "" || password === " ") {
+        } else if (senha === "" || senha === " ") {
           alert("Por favor digite sua senha!");
           return;
         }
-        console.log("Chegou no fim")//COMENTAR
-        //navigate("/")
+        const returnedToken = await fazerLogin(login, senha);
+        setAuthToken(returnedToken);
+        setlogado(true);
+        navigate("/produtos")
+
       } catch (error) {
-        alert("Não foi possivel concluir a sua solicitação!");
+        Swal.fire({
+          icon: "error", title: "Oops...",
+          text: "Usuário ou senha inválida", width: "24rem"
+        })
       }
     };
   
@@ -53,10 +69,10 @@ function Login() {
           </LogoContainer>
           <UserFormContainer>
             <UserFormInput 
-            type="email"
-            name="email"
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="E-mail"
+            type="login"
+            name="login"
+            onChange={(e) => setLogin(e.target.value)}
+            placeholder="Login"
             required />
           </UserFormContainer>
           <PasswordFormContainer>
@@ -64,7 +80,7 @@ function Login() {
             type="password" 
             name="password"  
             placeholder="Senha" 
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setSenha(e.target.value)}
             required />
           </PasswordFormContainer>
           <SubmitButtonContainer>
