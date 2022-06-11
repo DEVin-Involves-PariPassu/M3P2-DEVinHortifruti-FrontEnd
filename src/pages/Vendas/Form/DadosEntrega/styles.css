@@ -1,0 +1,28 @@
+.formLog {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin-top: 100px;
+    color: black;
+  }
+  
+  .sendLog {
+    margin-top: 10px;
+    width: 300px;
+    background-color: #a3e028;
+    color: black;
+  }
+  
+  .containerLog {
+    margin-left: 40%;
+  }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+  }
