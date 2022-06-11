@@ -6,6 +6,7 @@ import InputSearch from 'components/InputSearch';
 import {MdEdit} from "react-icons/md"
 import { BsCheckCircleFill } from "react-icons/bs";
 import { MdCancel } from "react-icons/md";
+import { priceFormat } from 'utils/priceFormat';
 
 import {
   TableContainer,
@@ -109,7 +110,7 @@ function ProdutoList() {
                   <TableRow key={id} hover role="checkbox" tabIndex={-1}>
                     <TableCell style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>{id}</TableCell>
                     <TableCell style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>{nome}</TableCell>
-                    <TableCell style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>{precoSugerido}</TableCell>
+                    <TableCell style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>{priceFormat(precoSugerido)}</TableCell>
                     <TableCell align="center" style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>
                       {ativo === true && <abbr title="Ativo">
                         <BsCheckCircleFill color='#36A23F'/>                        
