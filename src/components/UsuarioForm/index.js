@@ -93,46 +93,47 @@ const UsuarioForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="container-form" onSubmit={handleSubmit}>
       <Box
         component="form"
         sx={{
-          "& .MuiTextField-root": { m: 1, width: "90ch" },
+          "& .MuiButton-root": {
+            width: "auto",
+            display: "flex",
+            flexDirection: "raw",
+          },
+          "& .MuiTextField-root": { 
+            m: 1,
+            width: "auto",
+            background:"#FFFFFF",
+            borderRadius: "5px 5px 0px 0px",
+            color: "#4a5926",
+            display: "flex",
+            flexDirection: "column",
+           },
         }}
         noValidate
         autoComplete="off"
       >
-        <div>
-          <TextField
-            required
-            id="nome"
-            label="Nome Completo"
-            placeholder="Nome"
-            variant="filled"
-            sx={{
-              background: "#FFFFFF",
-              borderRadius: "5px 5px 0px 0px",
-              color: "#4a5926",
-            }}
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-          />
-          <TextField
-            required
-            id="email"
-            label="E-mail"
-            placeholder="devin@hortifruti.com"
-            variant="filled"
-            sx={{
-              background: "#FFFFFF",
-              borderRadius: "5px 5px 0px 0px",
-              color: "#4a5926",
-            }}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-
+       
+        <TextField
+          required
+          id="nome"
+          label="Nome Completo"
+          placeholder="Nome"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}          
+        />
+        
+        <TextField
+          required
+          id="email"
+          label="E-mail"
+          placeholder="devin@hortifruti.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+   
         <InputCalendar />
 
         <div className="switch-control">
