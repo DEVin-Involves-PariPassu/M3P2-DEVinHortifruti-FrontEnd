@@ -12,8 +12,8 @@ import {
   UserFormInput,
 } from "../../pages/Login/login.elements";
 import Logo from "../../assets/logo1_colorida.png";
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { authState, signed } from 'store/modules/auth/recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { authState, signed, isAdminState } from 'store/modules/auth/recoil';
 import api from 'utils/api';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
@@ -28,13 +28,15 @@ function Login() {
 
     const setAuthToken = useSetRecoilState(authState);
     const [logado, setLogado] = useRecoilState(signed);
+    const setIsAdmin = useSetRecoilState(isAdminState);
 
   async function fazerLogin(login, senha) {
       const response = await api.post(`/login`, {
       login: login,
       senha: senha
     });
-    const { token } = await response.data;
+    const { token, admin } = await response.data;
+    setIsAdmin(admin);
     return token;
   }
   
