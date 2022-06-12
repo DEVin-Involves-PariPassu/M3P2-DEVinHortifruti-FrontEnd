@@ -45,7 +45,7 @@ export default function UsuarioList() {
 
   useEffect(() => {
     api
-      .get("/usuario")
+      .get("/users")
       .then((response) => setUsuario(response.data.content))
       .catch(() => alert("Não foi possível buscar os usuários."));
   }, []);
@@ -162,12 +162,12 @@ export default function UsuarioList() {
                           fontWeight: "bold",
                         }}
                       >
-                        {isAdmin === "true" && (
+                        {isAdmin === true && (
                           <abbr title="Sim">
                             <FiUserCheck color="#36A23F" size="20px" />
                           </abbr>
                         )}
-                        {isAdmin === "false" && (
+                        {isAdmin === false && (
                           <abbr title="Não">
                             <FiUserX color="#521E12" size="20px" />
                           </abbr>
@@ -186,6 +186,7 @@ export default function UsuarioList() {
                         <abbr title="Editar usuário">
                           <IconButton
                             sx={{ ":hover": { background: "#C4CAAF" } }}
+                            onClick={() => navigate(`/usuarios/${id}`)}
                           >
                             <MdEdit color="#D06618" />
                             <MdDelete color="#521e12" />
