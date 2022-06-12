@@ -1,0 +1,18 @@
+.produtos {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.produto-list {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(200px, 1fr)
+  );
+  list-style: none;
+  grid-gap: 1.5rem;
+}
+
+.produto-list img {
+  max-width: 100%;
+}
