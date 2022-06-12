@@ -15,7 +15,7 @@ const Produto = () => {
       setInfo({});
 
       fetch(
-        `${api}anime?filter[text]=${text}&page[limit]=12`
+        `${api}produtos?filter[text]=${text}&page[limit]=12`
       )
         .then((response) => response.json())
         .then((response) => {
@@ -50,13 +50,13 @@ const Produto = () => {
       {text && !info.data && <span>Carregando...</span>}
       {info.data && (
         <ul className="produtos-list">
-          {info.data.map((anime) => (
-            <li key={anime.id}>
+          {info.data.map((produto) => (
+            <li key={produto.id}>
               <img
-                src={anime.attributes.posterImage.small}
-                alt={anime.attributes.canonicalTitle}
+                src={produto.attributes.posterImage.small}
+                alt={a.produto.canonicalTitle}
               />
-              {anime.attributes.canonicalTitle}
+              {produto.attributes.canonicalTitle}
             </li>
           ))}
         </ul>
