@@ -11,7 +11,7 @@ function Routes() {
     //por enquanto, usuario é só uma flag setada manualmente, conforme descrito abaixo.
     //Se quiser ver a tela de login, sete usuario = false
     //Senão, mantenha usuario = true
-    const usuario = true;
+    const usuario = false;
 
     return (
         <>

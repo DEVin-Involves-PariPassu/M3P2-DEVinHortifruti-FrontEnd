@@ -1,9 +1,12 @@
 import React from 'react';
+import Produto from 'components/Produto';
 
 // import { Container } from './styles';
 
-function ProdutoForm() {
-  return <div />;
+function ProdutosForm() {
+  return (
+      <Produto/>
+  )
 }
 
-export default ProdutoForm;
+export default ProdutosForm;
