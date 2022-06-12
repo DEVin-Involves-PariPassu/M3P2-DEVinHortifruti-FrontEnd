@@ -30,13 +30,13 @@ background-color: var(--verde-secundario);
 
 h1 {
   color: var(--marrom-apoio);
-  font-family: 'Squada One', cursive;
+  font-family: "Squada One", cursive;
   font-weight: lighter;
   font-size: 2.7rem;
 }
 
 h3 {
-  font-family: 'Exo', sans-serif;
+  font-family: "Exo", sans-serif;
 }
 
 .pg-container {
@@ -64,6 +64,12 @@ h3 {
   background-color: var(--verde-primario);
 }
 .white-logo {
+  background-image: url("assets/logo2_branca.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  width: 200px;
+  height: 60px;
   margin-left: 5%;
   cursor: pointer;
 }
@@ -109,14 +115,13 @@ h3 {
 /* SIDEBAR */
 
 .logo-sidebar {
-  background-image: url('assets/logo4_colorida.png');
+  background-image: url("assets/logo4_colorida.png");
   background-size: contain;
   background-repeat: no-repeat;
   border: none;
   width: 150px;
   height: 100px;
   margin-top: 30px;
-  margin-left: 50px;
 }
 
 .sidebar {
@@ -125,7 +130,7 @@ h3 {
   height: 100%;
 }
 .sidebar span {
-  font-family: 'Squada One', cursive;
+  font-family: "Squada One", cursive;
   font-weight: lighter;
   font-size: 18pt;
   text-align: center;
@@ -165,10 +170,11 @@ h3 {
   border-radius: 10px;
   background: var(--verde-secundario);
   border: 1.5px solid var(--verde-apoio);
-  font-family: 'Exo', sans-serif;
+  font-family: "Exo", sans-serif;
 }
 
-.modal-informacoes-comprador, .modal-endereco{
+.modal-informacoes-comprador,
+.modal-endereco {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
