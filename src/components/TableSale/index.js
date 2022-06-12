@@ -2,10 +2,11 @@ import { React, useState, useEffect } from "react";
 import "./TableSale.css";
 import api from "utils/api";
 import { priceFormat } from "utils/priceFormat";
-import { useNavigate } from "react-router-dom";
 import InputSearch from "components/InputSearch";
 import { authState } from "store/modules/auth/recoil";
 import { useRecoilValue } from "recoil";
+import { isAdminState } from 'store/modules/auth/recoil';
+
 
 import {
   TableContainer,
@@ -104,6 +105,8 @@ export default function TableSales() {
 
   const token = useRecoilValue(authState);
   api.defaults.headers.Authorization = `Bearer ${token}`;
+
+  const isAdmin = useRecoilValue(isAdminState);
 
   useEffect(() => {
     api
