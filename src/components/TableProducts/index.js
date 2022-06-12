@@ -6,6 +6,8 @@ import { MdEdit } from "react-icons/md";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { MdCancel } from "react-icons/md";
 import { priceFormat } from "utils/priceFormat";
+import { authState } from "store/modules/auth/recoil";
+import { useRecoilValue } from "recoil";
 
 import {
   TableContainer,
@@ -42,6 +44,9 @@ function TableProducts() {
 
   const [produto, setProduto] = useState([]);
   const [search, setSearch] = useState("");
+
+  const token = useRecoilValue(authState);
+  api.defaults.headers.Authorization = `Bearer ${token}`;
 
   useEffect(() => {
     api

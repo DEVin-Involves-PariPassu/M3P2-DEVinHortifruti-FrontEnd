@@ -18,6 +18,7 @@ function RotasPrivadas() {
       <Switch>
         <Route exact path="/produtos" element={<ProdutoList />} />
         <Route exact path="/produtos/novo" element={<ProdutoForm />} />
+        <Route exact path="/produtos/:id" element={<ProdutoForm />} />
         <Route exact path="/usuarios" element={<UsuarioList />} />
         <Route exact path="/usuarios/novo" element={<UsuarioForm />} />
         <Route exact path="/usuarios/:id" element={<UsuarioForm />} />
