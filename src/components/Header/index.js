@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../../assets/logo2_branca.png";
+import Sidebar from "components/Sidebar";
 import { useNavigate } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import Swal from "sweetalert2";
@@ -19,18 +19,14 @@ const Header = () => {
       }
     });
   };
+
   const navigate = useNavigate();
   return (
     <header>
       <nav className="nav-bar">
-        <img
-          className="white-logo"
-          src={Logo}
-          alt="logo"
-          width="200"
-          height="60"
-          onClick={""}
-        />
+        <div className="white-logo">
+          <Sidebar />
+        </div>
         <button className="btn-logout" title="Sair" onClick={handleConfirm}>
           <FiLogOut size="30" />
         </button>

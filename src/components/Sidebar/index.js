@@ -9,8 +9,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { useNavigate } from "react-router";
-
-import { IoExitOutline, IoPeopleOutline } from "react-icons/io5";
+import { IoPeopleOutline } from "react-icons/io5";
+import { FiLogOut } from "react-icons/fi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { TbLemon } from "react-icons/tb";
 
@@ -50,30 +50,36 @@ export default function Sidebar() {
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {index === 0 ? <AiOutlineShoppingCart
+                  {index === 0 ? (
+                    <AiOutlineShoppingCart
                       onClick={() => navigate("/vendas")}
-                    /> : true} 
+                    />
+                  ) : (
+                    true
+                  )}
                   {index === 1 ? (
                     <TbLemon onClick={() => navigate("/produtos")} />
-                  ) : true}
+                  ) : (
+                    true
+                  )}
                   {index === 2 ? (
-                    <IoPeopleOutline onClick={() => navigate("/vendas")} />
+                    <IoPeopleOutline onClick={() => navigate("/usuarios")} />
                   ) : (
                     true
                   )}
                 </ListItemIcon>
                 <ListItemText primary={text} />
-              </ListItemButton>          
+              </ListItemButton>
             </ListItem>
           ))}
         </List>
         <Divider />
         <List>
-          {["Sair"].map((text, index) => (
+          {["Sair"].map((text) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <IoExitOutline onClick={() => navigate("/")} />
+                  <FiLogOut onClick={() => navigate("/")} />
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
@@ -89,16 +95,12 @@ export default function Sidebar() {
       {["left"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button
-            className="logo-sidebar"
             style={{
-              marginTop: "30px",
-              marginLeft: "50px",
-              color: "transparent",
+              width: "200px",
+              height: "60px",
             }}
             onClick={toggleDrawer(anchor, true)}
-          >
-            {anchor}
-          </Button>
+          ></Button>
           <SwipeableDrawer
             anchor={anchor}
             open={state[anchor]}
