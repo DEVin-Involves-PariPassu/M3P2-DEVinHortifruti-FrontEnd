@@ -1,12 +1,11 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import api from 'utils/api';
-import InputSearch from 'components/InputSearch';
-import {MdEdit} from "react-icons/md"
+import React from "react";
+import { useState, useEffect } from "react";
+import api from "utils/api";
+import InputSearch from "components/InputSearch";
+import { MdEdit } from "react-icons/md";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { MdCancel } from "react-icons/md";
-import { priceFormat } from 'utils/priceFormat';
-import { useNavigate } from 'react-router-dom';
+import { priceFormat } from "utils/priceFormat";
 
 import {
   TableContainer,
@@ -18,8 +17,7 @@ import {
   Paper,
   IconButton,
 } from "@mui/material";
-
-
+import { useNavigate } from "react-router-dom";
 
 const columns = [
   { id: "1", label: "ID", minWidth: 60 },
@@ -37,98 +35,153 @@ const columns = [
     minWidth: 70,
     align: "center",
   },
-
 ];
 
 function TableProducts() {
-
   let navigate = useNavigate();
-  function handleClick(){
-    navigate(
-      "/produtos/novo"
-    )
-  }
 
-  const [busca, setBusca] = useState('');
-  const onChange = (event) => {
-
-    setBusca(event.target.value);
-
-    const lowerBusca = busca.toLowerCase();
-
-    const resultFilter = this.data.filter((data) => {
-      return data.nomeCliente.toLowerCase().includes(lowerBusca);
-    });
-
-    this.setState({
-      nomeCliente: resultFilter,
-    });
-
-  }
   const [produto, setProduto] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     api
       .get("/produto")
       .then((response) => setProduto(response.data.content))
-      .catch(() => alert('Houve um problema ao buscar os dados!'));
+      .catch(() => alert("Houve um problema ao buscar os dados!"));
   }, []);
 
-  const [filter, setFilter] = useState([]);
-    const handleChange = (event) => {
-        const text = event.target.value;
-        setFilter(text);
-    }
+  return (<>
+          <InputSearch
+            placeholder={"Buscar por nome do produto..."}
+            value={search}
+            onChange={(ev) => setSearch(ev.target.value)}
+          ></InputSearch>
 
-  return (
-  <>
-  <InputSearch placeholder={"Buscar por produto..."} onChange={""}/>
-
-<Paper elevation={3} className="secao tabela">
-      <TableContainer sx={{ maxHeight: 600 }}>
-        <Table stickHeader aria-label="sticky table" sx={{color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold'}}>
-          <TableHead sx={{bg:'backgroud.extra'}}>
-            <TableRow >
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  sx={{ minWidth: column.minWidth, fontFamily: 'Exo', fontSize: '1rem', fontWeight: 'bold', color:"#4A5926"}}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody sx={{ maxHeight: 600, color: '#36A23F'}} >
-            {produto
-              .map(({ id, nome, precoSugerido, ativo }) => {
-                return (
-                  <TableRow key={id} hover role="checkbox" tabIndex={-1}>
-                    <TableCell style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>{id}</TableCell>
-                    <TableCell style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>{nome}</TableCell>
-                    <TableCell style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>{priceFormat(precoSugerido)}</TableCell>
-                    <TableCell align="center" style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>
-                      {ativo === true && <abbr title="Ativo">
-                        <BsCheckCircleFill color='#36A23F'/>                        
-                          </abbr>}
-                      {ativo === false && (                                      
-                          <abbr title="Inativo"><MdCancel color="#521E12" size="16px"/>
-                          </abbr>        
-                      )}
-                    </TableCell>
-                    <TableCell align="center" style={{ color:'#4A5926', fontFamily: 'Exo', fontSize: '0.8rem', fontWeight:'bold' }}>
-                    <abbr title = "Editar produto"><IconButton onClick={() => navigate(`/produtos/${id}`)} sx={{':hover':{background:'#C4CAAF'}}}><MdEdit color='#D06618'className='botao-editar'/></IconButton></abbr>
-                
-                    </TableCell>
+          <Paper elevation={3} className="secao tabela">
+            <TableContainer sx={{ maxHeight: 600 }}>
+              <Table
+                stickHeader
+                aria-label="sticky table"
+                sx={{
+                  color: "#4A5926",
+                  fontFamily: "Exo",
+                  fontSize: "0.8rem",
+                  fontWeight: "bold",
+                }}
+              >
+                <TableHead sx={{ bg: "backgroud.extra" }}>
+                  <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        sx={{
+                          minWidth: column.minWidth,
+                          fontFamily: "Exo",
+                          fontSize: "1rem",
+                          fontWeight: "bold",
+                          color: "#4A5926",
+                        }}
+                      >
+                        {column.label}
+                      </TableCell>
+                    ))}
                   </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Paper>
-    </>
-    );}
+                </TableHead>
+                <TableBody sx={{ maxHeight: 600, color: "#36A23F" }}>
+                  {produto
+                    .filter((produtos) => {
+                      if (search === "") {
+                        return produtos;
+                      } else if (search !== "") {
+                        return produtos.nome
+                          .toLowerCase()
+                          .includes(search.toLowerCase());
+                      }
+                    })
+                    .map(({ id, nome, precoSugerido, ativo }) => {
+                      return (
+                        <TableRow key={id} hover role="checkbox" tabIndex={-1}>
+                          <TableCell
+                            style={{
+                              color: "#4A5926",
+                              fontFamily: "Exo",
+                              fontSize: "0.8rem",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {id}
+                          </TableCell>
+                          <TableCell
+                            style={{
+                              color: "#4A5926",
+                              fontFamily: "Exo",
+                              fontSize: "0.8rem",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {nome}
+                          </TableCell>
+                          <TableCell
+                            style={{
+                              color: "#4A5926",
+                              fontFamily: "Exo",
+                              fontSize: "0.8rem",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {priceFormat(precoSugerido)}
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                            style={{
+                              color: "#4A5926",
+                              fontFamily: "Exo",
+                              fontSize: "0.8rem",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {ativo === true && (
+                              <abbr title="Ativo">
+                                <BsCheckCircleFill color="#36A23F" />
+                              </abbr>
+                            )}
+                            {ativo === false && (
+                              <abbr title="Inativo">
+                                <MdCancel color="#521E12" size="16px" />
+                              </abbr>
+                            )}
+                          </TableCell>
+                          <TableCell
+                            align="center"
+                            style={{
+                              color: "#4A5926",
+                              fontFamily: "Exo",
+                              fontSize: "0.8rem",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            <abbr title="Editar produto">
+                              <IconButton
+                                onClick={() => navigate(`/produtos/${id}`)}
+                                sx={{ ":hover": { background: "#C4CAAF" } }}
+                              >
+                                <MdEdit
+                                  color="#D06618"
+                                  className="botao-editar"
+                                />
+                              </IconButton>
+                            </abbr>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+          </>
+  );
+}
 
 export default TableProducts;
