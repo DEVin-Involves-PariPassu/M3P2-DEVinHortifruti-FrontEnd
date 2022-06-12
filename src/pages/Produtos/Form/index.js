@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import api from 'utils/api';
 import { authState } from "store/modules/auth/recoil";
 import { useRecoilValue } from "recoil";
+import { isAdminState } from 'store/modules/auth/recoil';
 
 import {
   TextField,
@@ -25,6 +26,7 @@ function ProdutoForm() {
 
   const token = useRecoilValue(authState);
   api.defaults.headers.Authorization = `Bearer ${token}`;
+  const isAdmin = useRecoilValue(isAdminState);
 
   const handleSubmitProduto = (event) => {
     event.preventDefault();

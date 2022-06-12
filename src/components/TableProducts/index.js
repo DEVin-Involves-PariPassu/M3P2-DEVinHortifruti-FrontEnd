@@ -8,6 +8,7 @@ import { MdCancel } from "react-icons/md";
 import { priceFormat } from "utils/priceFormat";
 import { authState } from "store/modules/auth/recoil";
 import { useRecoilValue } from "recoil";
+import { isAdminState } from 'store/modules/auth/recoil';
 
 import {
   TableContainer,
@@ -47,6 +48,7 @@ function TableProducts() {
 
   const token = useRecoilValue(authState);
   api.defaults.headers.Authorization = `Bearer ${token}`;
+  const isAdmin = useRecoilValue(isAdminState);
 
   useEffect(() => {
     api
