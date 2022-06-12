@@ -2,6 +2,8 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from 'utils/api';
+import { authState } from "store/modules/auth/recoil";
+import { useRecoilValue } from "recoil";
 
 import {
   TextField,
@@ -20,6 +22,9 @@ function ProdutoForm() {
   const [precoSugerido, setPrecoSugerido] = useState(0);
   const [descricao, setDescricao] = useState('');
   const [status, setStatus] = useState(true);
+
+  const token = useRecoilValue(authState);
+  api.defaults.headers.Authorization = `Bearer ${token}`;
 
   const handleSubmitProduto = (event) => {
     event.preventDefault();

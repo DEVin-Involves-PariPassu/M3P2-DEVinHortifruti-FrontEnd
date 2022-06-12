@@ -4,6 +4,8 @@ import api from "utils/api";
 import { priceFormat } from "utils/priceFormat";
 import { useNavigate } from "react-router-dom";
 import InputSearch from "components/InputSearch";
+import { authState } from "store/modules/auth/recoil";
+import { useRecoilValue } from "recoil";
 
 import {
   TableContainer,
@@ -46,7 +48,6 @@ const columns = [
 ];
 
 export default function TableSales() {
-  const navigate = useNavigate();
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -100,6 +101,9 @@ export default function TableSales() {
   function defaultLabelDisplayedRows({ from, to, count }) {
     return `${from}–${to} de ${count !== -1 ? count : `mais ${to}`}`;
   }
+
+  const token = useRecoilValue(authState);
+  api.defaults.headers.Authorization = `Bearer ${token}`;
 
   useEffect(() => {
     api
