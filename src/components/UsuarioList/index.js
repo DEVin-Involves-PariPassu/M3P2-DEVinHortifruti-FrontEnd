@@ -4,6 +4,8 @@ import { MdEdit, MdDelete } from "react-icons/md";
 import { FiUserCheck, FiUserX } from "react-icons/fi";
 import api from "utils/api";
 import InputSearch from "components/InputSearch";
+import { authState } from "store/modules/auth/recoil";
+import { useRecoilValue } from "recoil";
 
 import {
   TableContainer,
@@ -46,6 +48,8 @@ export default function UsuarioList() {
 
   const [usuarios, setUsuarios] = useState([]);
   const [search, setSearch] = useState("");
+  const token = useRecoilValue(authState);
+  api.defaults.headers.Authorization = `Bearer ${token}`;
 
   useEffect(() => {
     api
@@ -193,7 +197,6 @@ export default function UsuarioList() {
                             onClick={() => navigate(`/usuarios/${id}`)}
                           >
                             <MdEdit color="#D06618" />
-                            <MdDelete color="#521e12" />
                           </IconButton>
                         </abbr>
                       </TableCell>
