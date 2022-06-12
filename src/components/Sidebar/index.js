@@ -112,6 +112,21 @@ export default function Sidebar() {
         </>
         )}
 
+        { !isAdmin && (
+        <List disablePadding onClick={() => navigate("/vendas/novo/resumo")}>
+          {["Minhas vendas"].map((text) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AiOutlineShoppingCart />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        )}
+
         <Divider />
         <List>
           {["Sair"].map((text) => (
