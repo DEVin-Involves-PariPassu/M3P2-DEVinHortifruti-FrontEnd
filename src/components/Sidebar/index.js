@@ -67,33 +67,47 @@ export default function Sidebar() {
       >
         <List>
           <div className="logo-sidebar"></div>
-          {["Vendas", "Produtos", "Usuários"].map((text, index) => (
+        </List>
+
+        <List disablePadding onClick={() => navigate("/vendas")}>
+          {["Vendas"].map((text) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {index === 0 ? (
-                    <AiOutlineShoppingCart
-                      onClick={() => navigate("/vendas")}
-                    />
-                  ) : (
-                    true
-                  )}
-                  {index === 1 ? (
-                    <TbLemon onClick={() => navigate("/produtos")} />
-                  ) : (
-                    true
-                  )}
-                  {index === 2 ? (
-                    <IoPeopleOutline onClick={() => navigate("/usuarios")} />
-                  ) : (
-                    true
-                  )}
+                  <AiOutlineShoppingCart />
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
+
+        <List disablePadding onClick={() => navigate("/produtos")}>
+          {["Produtos"].map((text) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <TbLemon />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+
+        <List disablePadding onClick={() => navigate("/usuarios")}>
+          {["Usuários"].map((text) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <IoPeopleOutline />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+
         <Divider />
         <List>
           {["Sair"].map((text) => (
