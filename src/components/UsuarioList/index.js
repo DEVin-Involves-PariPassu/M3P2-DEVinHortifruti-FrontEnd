@@ -170,12 +170,12 @@ export default function UsuarioList() {
                           fontWeight: "bold",
                         }}
                       >
-                        {isAdmin === "true" && (
+                        {isAdmin === true && (
                           <abbr title="Sim">
                             <FiUserCheck color="#36A23F" size="20px" />
                           </abbr>
                         )}
-                        {isAdmin === "false" && (
+                        {isAdmin === false && (
                           <abbr title="Não">
                             <FiUserX color="#521E12" size="20px" />
                           </abbr>
