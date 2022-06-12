@@ -115,10 +115,10 @@ export default function Sidebar() {
         <Divider />
         <List>
           {["Sair"].map((text) => (
-            <ListItem key={text} disablePadding>
+            <ListItem key={text} disablePadding onClick={() => handleConfirm()}>
               <ListItemButton>
                 <ListItemIcon>
-                  <FiLogOut onClick={() => handleConfirm()} />
+                  <FiLogOut />
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
