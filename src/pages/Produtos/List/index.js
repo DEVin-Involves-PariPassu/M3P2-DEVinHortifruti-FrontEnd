@@ -1,18 +1,24 @@
-//import axios from 'axios';
-//import React, { useEffect, useState } from 'react';
-
-// import { Container } from './styles';
+import React from "react";
+import ListHeader from "components/ListHeader";
+import { useNavigate } from "react-router-dom";
+import TableProducts from "components/TableProducts";
 
 function ProdutoList() {
+  let navigate = useNavigate();
+  function handleClick() {
+    navigate("/produtos/novo");
+  }
 
-    //const [produtos, setProdutos] = useState([])
-
-    //useEffect(() => {
-    //      axios
-     //     .get()
-      //    .then((response) => console.log(response.data))
-   // },[])
-  return <div />;
+  return (
+    <div className="pg-container">
+      <div className="secao">
+        <section className="secao-produtos">
+          <ListHeader paginaAtual="produtos" onClick={handleClick} />
+         <TableProducts />
+        </section>
+      </div>
+    </div>
+  );
 }
 
 export default ProdutoList;
