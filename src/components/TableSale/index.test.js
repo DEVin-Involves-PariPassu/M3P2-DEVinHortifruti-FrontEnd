@@ -37,14 +37,5 @@ it ('should have a "CLIENTE" columns', () => {
     expect(columns).toBeInTheDocument();
     
   });
-  it ('should have a secao div', () => {
-    const { secao_Tabela  } = render (
-    <MemoryRouter>
-      <TableSale />
-      </MemoryRouter> );
-    expect(secao_Tabela.getElementsByClassName('secaoTabela').length).toBeGreaterThan(0);
-  });
-
-
 
   export{};
