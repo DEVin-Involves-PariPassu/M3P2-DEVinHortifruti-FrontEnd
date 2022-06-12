@@ -14,8 +14,8 @@ import { FiLogOut } from "react-icons/fi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { TbLemon } from "react-icons/tb";
 import Swal from "sweetalert2";
-import { useSetRecoilState } from "recoil";
-import { signed } from "store/modules/auth/recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { signed, isAdminState } from "store/modules/auth/recoil";
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -28,6 +28,7 @@ export default function Sidebar() {
   });
 
   const setLogado = useSetRecoilState(signed);
+  const isAdmin = useRecoilValue(isAdminState);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -69,6 +70,7 @@ export default function Sidebar() {
           <div className="logo-sidebar"></div>
         </List>
 
+        { isAdmin && (<>
         <List disablePadding onClick={() => navigate("/vendas")}>
           {["Vendas"].map((text) => (
             <ListItem key={text} disablePadding>
@@ -107,6 +109,8 @@ export default function Sidebar() {
             </ListItem>
           ))}
         </List>
+        </>
+        )}
 
         <Divider />
         <List>
