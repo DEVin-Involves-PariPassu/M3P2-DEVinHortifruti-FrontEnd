@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { FiUserCheck, FiUserX } from "react-icons/fi";
-import InputSearch from "components/InputSearch";
 import api from "utils/api";
+import InputSearch from "components/InputSearch";
+
 import {
   TableContainer,
   Table,
@@ -40,14 +42,16 @@ const columns = [
 ];
 
 export default function UsuarioList() {
-  const [usuario, setUsuario] = useState([]);
+  let navigate = useNavigate();
+
+  const [usuarios, setUsuarios] = useState([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     api
       .get("/users")
-      .then((response) => setUsuario(response.data.content))
-      .catch(() => alert("Não foi possível buscar os usuários."));
+      .then((response) => setUsuarios(response.data))
+      .catch(() => alert("Não foi possível buscar usuários."));
   }, []);
 
   return (
@@ -92,12 +96,12 @@ export default function UsuarioList() {
             </TableHead>
 
             <TableBody sx={{ maxHeight: 600, color: "#36A23F" }}>
-              {usuario
-                .filter((usuarios) => {
+              {usuarios
+                .filter((usuario) => {
                   if (search === "") {
-                    return usuarios;
+                    return usuario;
                   } else if (search !== "") {
-                    return usuarios.nome
+                    return usuario.nome
                       .toLowerCase()
                       .includes(search.toLowerCase());
                   }
@@ -162,12 +166,12 @@ export default function UsuarioList() {
                           fontWeight: "bold",
                         }}
                       >
-                        {isAdmin === true && (
+                        {isAdmin === "true" && (
                           <abbr title="Sim">
                             <FiUserCheck color="#36A23F" size="20px" />
                           </abbr>
                         )}
-                        {isAdmin === false && (
+                        {isAdmin === "false" && (
                           <abbr title="Não">
                             <FiUserX color="#521E12" size="20px" />
                           </abbr>
