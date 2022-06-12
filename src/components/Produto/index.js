@@ -3,6 +3,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import React, { useEffect, useState }  from "react";
 import Button from "@material-ui/core/Button";
 import EntradaPesquisa from "./pesquisa";
+import useDebounce from "./useDebounce";
 import './styles.css';
 
 const Produto = () => {
@@ -54,7 +55,7 @@ const Produto = () => {
             <li key={produto.id}>
               <img
                 src={produto.attributes.posterImage.small}
-                alt={a.produto.canonicalTitle}
+                //alt={a.produto.canonicalTitle}
               />
               {produto.attributes.canonicalTitle}
             </li>
