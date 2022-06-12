@@ -13,6 +13,9 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { TbLemon } from "react-icons/tb";
+import Swal from "sweetalert2";
+import { useSetRecoilState } from "recoil";
+import { signed } from "store/modules/auth/recoil";
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -23,6 +26,8 @@ export default function Sidebar() {
     bottom: false,
     right: false,
   });
+
+  const setLogado = useSetRecoilState(signed);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -36,6 +41,22 @@ export default function Sidebar() {
     setState({ ...state, [anchor]: open });
   };
 
+  const handleConfirm = () => {
+    Swal.fire({
+      title: "Tem certeza que deseja sair?",
+      icon: "warning",
+      width: "24rem",
+      showCancelButton: true,
+      confirmButtonColor: "#36a23f",
+      cancelButtonColor: "#d33",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setLogado(false);
+        navigate("/");
+      }
+    });
+  };
+
   const list = (anchor) => (
     <div className="sidebar">
       <Box
@@ -46,40 +67,54 @@ export default function Sidebar() {
       >
         <List>
           <div className="logo-sidebar"></div>
-          {["Vendas", "Produtos", "Usuários"].map((text, index) => (
+        </List>
+
+        <List disablePadding onClick={() => navigate("/vendas")}>
+          {["Vendas"].map((text) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {index === 0 ? (
-                    <AiOutlineShoppingCart
-                      onClick={() => navigate("/vendas")}
-                    />
-                  ) : (
-                    true
-                  )}
-                  {index === 1 ? (
-                    <TbLemon onClick={() => navigate("/produtos")} />
-                  ) : (
-                    true
-                  )}
-                  {index === 2 ? (
-                    <IoPeopleOutline onClick={() => navigate("/usuarios")} />
-                  ) : (
-                    true
-                  )}
+                  <AiOutlineShoppingCart />
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
+
+        <List disablePadding onClick={() => navigate("/produtos")}>
+          {["Produtos"].map((text) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <TbLemon />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+
+        <List disablePadding onClick={() => navigate("/usuarios")}>
+          {["Usuários"].map((text) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <IoPeopleOutline />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+
         <Divider />
         <List>
           {["Sair"].map((text) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <FiLogOut onClick={() => navigate("/")} />
+                  <FiLogOut onClick={() => handleConfirm()} />
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
