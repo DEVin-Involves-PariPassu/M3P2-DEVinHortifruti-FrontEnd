@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { FiUserCheck, FiUserX } from "react-icons/fi";
+import InputSearch from "components/InputSearch";
+import api from "utils/api";
 import {
   TableContainer,
   Table,
@@ -37,47 +39,24 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    id: 1,
-    nome: "Lucas Bueno",
-    email: "bueno@gmail.com",
-    dtNascimento: "01/01/2022",
-    isAdmin: "true",
-  },
-  {
-    id: 2,
-    nome: "Daiana Michels",
-    email: "daiana@gmail.com",
-    dtNascimento: "03/03/2022",
-    isAdmin: "true",
-  },
-  {
-    id: 3,
-    nome: "Kalyana Greim",
-    email: "kaly@gmail.com",
-    dtNascimento: "07/04/2022",
-    isAdmin: "false",
-  },
-  {
-    id: 4,
-    nome: "Camilla Amaral",
-    email: "camilla@gmail.com",
-    dtNascimento: "11/09/2022",
-    isAdmin: "false",
-  },
-  {
-    id: 5,
-    nome: "Félix Colombo",
-    email: "felix@gmail.com",
-    dtNascimento: "01/07/2022",
-    isAdmin: "true",
-  },
-];
-
 export default function UsuarioList() {
+  const [usuario, setUsuario] = useState([]);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    api
+      .get("/usuario")
+      .then((response) => setUsuario(response.data.content))
+      .catch(() => alert("Não foi possível buscar os usuários."));
+  }, []);
+
   return (
     <>
+      <InputSearch
+        placeholder={"Digite o nome do usuário"}
+        value={search}
+        onChange={(ev) => setSearch(ev.target.value)}
+      />
       <Paper elevation={3} className="secao tabela">
         <TableContainer sx={{ maxHeight: 600 }}>
           <Table
@@ -113,99 +92,109 @@ export default function UsuarioList() {
             </TableHead>
 
             <TableBody sx={{ maxHeight: 600, color: "#36A23F" }}>
-              {data.map(({ id, nome, email, dtNascimento, isAdmin }) => {
-                return (
-                  <TableRow key={id} hover role="checkbox" tabIndex={-1}>
-                    <TableCell
-                      align="center"
-                      style={{
-                        color: "#4A5926",
-                        fontFamily: "Exo",
-                        fontSize: "0.8rem",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {id}
-                    </TableCell>
+              {usuario
+                .filter((usuarios) => {
+                  if (search === "") {
+                    return usuarios;
+                  } else if (search !== "") {
+                    return usuarios.nome
+                      .toLowerCase()
+                      .includes(search.toLowerCase());
+                  }
+                })
+                .map(({ id, nome, email, dtNascimento, isAdmin }) => {
+                  return (
+                    <TableRow key={id} hover role="checkbox" tabIndex={-1}>
+                      <TableCell
+                        align="center"
+                        style={{
+                          color: "#4A5926",
+                          fontFamily: "Exo",
+                          fontSize: "0.8rem",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {id}
+                      </TableCell>
 
-                    <TableCell
-                      align="center"
-                      style={{
-                        color: "#4A5926",
-                        fontFamily: "Exo",
-                        fontSize: "0.8rem",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {nome}
-                    </TableCell>
+                      <TableCell
+                        align="center"
+                        style={{
+                          color: "#4A5926",
+                          fontFamily: "Exo",
+                          fontSize: "0.8rem",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {nome}
+                      </TableCell>
 
-                    <TableCell
-                      align="center"
-                      style={{
-                        color: "#4A5926",
-                        fontFamily: "Exo",
-                        fontSize: "0.8rem",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {email}
-                    </TableCell>
+                      <TableCell
+                        align="center"
+                        style={{
+                          color: "#4A5926",
+                          fontFamily: "Exo",
+                          fontSize: "0.8rem",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {email}
+                      </TableCell>
 
-                    <TableCell
-                      align="center"
-                      style={{
-                        color: "#4A5926",
-                        fontFamily: "Exo",
-                        fontSize: "0.8rem",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {dtNascimento}
-                    </TableCell>
+                      <TableCell
+                        align="center"
+                        style={{
+                          color: "#4A5926",
+                          fontFamily: "Exo",
+                          fontSize: "0.8rem",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {dtNascimento}
+                      </TableCell>
 
-                    <TableCell
-                      align="center"
-                      style={{
-                        color: "#4A5926",
-                        fontFamily: "Exo",
-                        fontSize: "0.8rem",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {isAdmin === "true" && (
-                        <abbr title="Sim">
-                          <FiUserCheck color="#36A23F" size="20px" />
+                      <TableCell
+                        align="center"
+                        style={{
+                          color: "#4A5926",
+                          fontFamily: "Exo",
+                          fontSize: "0.8rem",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {isAdmin === "true" && (
+                          <abbr title="Sim">
+                            <FiUserCheck color="#36A23F" size="20px" />
+                          </abbr>
+                        )}
+                        {isAdmin === "false" && (
+                          <abbr title="Não">
+                            <FiUserX color="#521E12" size="20px" />
+                          </abbr>
+                        )}
+                      </TableCell>
+
+                      <TableCell
+                        align="center"
+                        style={{
+                          color: "#4A5926",
+                          fontFamily: "Exo",
+                          fontSize: "0.8rem",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        <abbr title="Editar usuário">
+                          <IconButton
+                            sx={{ ":hover": { background: "#C4CAAF" } }}
+                          >
+                            <MdEdit color="#D06618" />
+                            <MdDelete color="#521e12" />
+                          </IconButton>
                         </abbr>
-                      )}
-                      {isAdmin === "false" && (
-                        <abbr title="Não">
-                          <FiUserX color="#521E12" size="20px" />
-                        </abbr>
-                      )}
-                    </TableCell>
-
-                    <TableCell
-                      align="center"
-                      style={{
-                        color: "#4A5926",
-                        fontFamily: "Exo",
-                        fontSize: "0.8rem",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      <abbr title="Editar usuário">
-                        <IconButton
-                          sx={{ ":hover": { background: "#C4CAAF" } }}
-                        >
-                          <MdEdit color="#D06618" />
-                          <MdDelete color="#521e12" />
-                        </IconButton>
-                      </abbr>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
             </TableBody>
           </Table>
         </TableContainer>
