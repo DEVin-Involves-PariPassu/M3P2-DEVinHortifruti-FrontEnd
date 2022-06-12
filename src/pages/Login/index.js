@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {
   Container,
   ContainerForm,
@@ -12,7 +12,7 @@ import {
   UserFormInput,
 } from "../../pages/Login/login.elements";
 import Logo from "../../assets/logo1_colorida.png";
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { authState, signed } from 'store/modules/auth/recoil';
 import api from 'utils/api';
 import Swal from 'sweetalert2';
@@ -26,8 +26,8 @@ function Login() {
     const [login, setLogin] = useState("");
     const [senha, setSenha] = useState("");
 
-    const [authToken, setAuthToken] = useRecoilState(authState);
-    const [logado, setlogado] = useRecoilState(signed);
+    const setAuthToken = useSetRecoilState(authState);
+    const [logado, setLogado] = useRecoilState(signed);
 
   async function fazerLogin(login, senha) {
       const response = await api.post(`/login`, {
@@ -50,8 +50,9 @@ function Login() {
         }
         const returnedToken = await fazerLogin(login, senha);
         setAuthToken(returnedToken);
-        setlogado(true);
-        navigate("/produtos")
+        setLogado(true);
+        localStorage.setItem('session',JSON.stringify(returnedToken));
+        navigate("/produtos");
 
       } catch (error) {
         Swal.fire({
@@ -60,7 +61,15 @@ function Login() {
         })
       }
     };
-  
+
+    useEffect(() => {
+      console.log(logado);
+      if(logado) {
+        setLogado(true);
+        navigate("/produtos");
+      }
+    }, [logado, navigate, setLogado]);
+
     return (
       <Container>
         <ContainerForm onSubmit={handleSubmit}>
