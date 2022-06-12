@@ -7,12 +7,17 @@ import {
   FormControlLabel,
   Button,
 } from "@mui/material";
-import InputCalendar from "components/InputCalendar";
 import Swal from "sweetalert2";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import moment from "moment";
 
 const UsuarioForm = () => {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
+  const [login, setLogin] = useState("");
+  const [dtNasc, setDtNasc] = useState("");
   const [dtNascimento, setDtNascimento] = useState("");
   const [isAdmin, setIsAdmin] = useState(true);
 
@@ -34,6 +39,12 @@ const UsuarioForm = () => {
       ) {
         alert("Insira um e-mail válido.");
         return;
+      } else if (!login) {
+        alert("Login é um campo obrigatório.");
+        return;
+      } else if (!dtNascimento) {
+        alert("Data de Nascimento é um campo obrigatório.");
+        return;
       }
       event.target.checkValidity();
 
@@ -54,7 +65,8 @@ const UsuarioForm = () => {
       });
     }
 
-    const response = await fetch("https://localhost:3000/usuarios/novo", {
+
+    const response = await fetch("https://localhost:8081/users", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -64,6 +76,7 @@ const UsuarioForm = () => {
         nome: nome,
         email: email,
         dtNascimento: dtNascimento,
+        login: login,
         isAdmin: isAdmin,
       }),
     });
@@ -124,6 +137,15 @@ const UsuarioForm = () => {
           value={nome}
           onChange={(e) => setNome(e.target.value)}          
         />
+
+        <TextField
+          required
+          id="login"
+          label="Login"
+          placeholder="Login do Usuário"
+          value={login}
+          onChange={(e) => setLogin(e.target.value)}
+        />    
         
         <TextField
           required
@@ -133,8 +155,22 @@ const UsuarioForm = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-   
-        <InputCalendar />
+
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <DatePicker
+            disableFuture
+            placeholder="dd/mm/aaaa"
+            label="Data de Nascimento"
+            openTo="day"
+            views={["day", "month", "year"]}
+            value={dtNasc}
+            onChange={(newDtNascimento) => {
+              setDtNasc(newDtNascimento)
+              setDtNascimento(moment(dtNasc).utc().format('DD-MM-YYYY'))
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
 
         <div className="switch-control">
           <FormControlLabel

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   ContainerForm,
@@ -12,8 +12,8 @@ import {
   UserFormInput,
 } from "../../pages/Login/login.elements";
 import Logo from "../../assets/logo1_colorida.png";
-import { useRecoilState } from 'recoil';
-import { authState, signed } from 'store/modules/auth/recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { authState, signed, isAdminState } from 'store/modules/auth/recoil';
 import api from 'utils/api';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
@@ -26,15 +26,17 @@ function Login() {
     const [login, setLogin] = useState("");
     const [senha, setSenha] = useState("");
 
-    const [authToken, setAuthToken] = useRecoilState(authState);
-    const [logado, setlogado] = useRecoilState(signed);
+    const setAuthToken = useSetRecoilState(authState);
+    const [logado, setLogado] = useRecoilState(signed);
+    const setIsAdmin = useSetRecoilState(isAdminState);
 
   async function fazerLogin(login, senha) {
       const response = await api.post(`/login`, {
       login: login,
       senha: senha
     });
-    const { token } = await response.data;
+    const { token, admin } = await response.data;
+    setIsAdmin(admin);
     return token;
   }
   
@@ -50,8 +52,9 @@ function Login() {
         }
         const returnedToken = await fazerLogin(login, senha);
         setAuthToken(returnedToken);
-        setlogado(true);
-        navigate("/produtos")
+        setLogado(true);
+        localStorage.setItem('session',JSON.stringify(returnedToken));
+        navigate("/produtos");
 
       } catch (error) {
         Swal.fire({
@@ -60,7 +63,15 @@ function Login() {
         })
       }
     };
-  
+
+    useEffect(() => {
+      console.log(logado);
+      if(logado) {
+        setLogado(true);
+        navigate("/produtos");
+      }
+    }, [logado, navigate, setLogado]);
+
     return (
       <Container>
         <ContainerForm onSubmit={handleSubmit}>
