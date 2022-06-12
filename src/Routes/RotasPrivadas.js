@@ -20,6 +20,7 @@ function RotasPrivadas() {
         <Route exact path="/produtos/novo" element={<ProdutoForm />} />
         <Route exact path="/usuarios" element={<UsuarioList />} />
         <Route exact path="/usuarios/novo" element={<UsuarioForm />} />
+        <Route exact path="/usuarios/:id" element={<UsuarioForm />} />
         <Route exact path="/vendas" element={<VendaList />} />
         <Route exact path="/vendas/novo/carrinho" element={<Carrinho />} />
         <Route exact path="/vendas/novo/comprador" element={<Comprador />} />
