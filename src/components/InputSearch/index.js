@@ -1,13 +1,8 @@
-import { React, useState } from "react";
+import { React } from "react";
 import { InputBase, Paper } from "@mui/material";
 import { BiSearchAlt2 } from "react-icons/bi";
 
-function InputSearch({ placeholder }) {
-  const [busca, setBusca] = useState([]);
-
-  const handleChange = (e) => {
-    setBusca(e.target.value);
-  };
+function InputSearch({ placeholder, value, onChange }) {
   return (
     <Paper
       elevation={3}
@@ -26,8 +21,8 @@ function InputSearch({ placeholder }) {
         sx={{ ml: 1, flex: 1, fontFamily: "Exo", color: "#4A5926" }}
         placeholder={placeholder}
         type={"text"}
-        onChange={handleChange}
-        value={busca}
+        onChange={onChange}
+        value={value}
         name={"filtro"}
       />
       <BiSearchAlt2 size={"20px"} />
