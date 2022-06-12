@@ -14,8 +14,8 @@ import { FiLogOut } from "react-icons/fi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { TbLemon } from "react-icons/tb";
 import Swal from "sweetalert2";
-import { useSetRecoilState } from "recoil";
-import { signed } from "store/modules/auth/recoil";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { signed, isAdminState } from "store/modules/auth/recoil";
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -28,6 +28,7 @@ export default function Sidebar() {
   });
 
   const setLogado = useSetRecoilState(signed);
+  const isAdmin = useRecoilValue(isAdminState);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -67,40 +68,72 @@ export default function Sidebar() {
       >
         <List>
           <div className="logo-sidebar"></div>
-          {["Vendas", "Produtos", "Usuários"].map((text, index) => (
+        </List>
+
+        { isAdmin && (<>
+        <List disablePadding onClick={() => navigate("/vendas")}>
+          {["Vendas"].map((text) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {index === 0 ? (
-                    <AiOutlineShoppingCart
-                      onClick={() => navigate("/vendas")}
-                    />
-                  ) : (
-                    true
-                  )}
-                  {index === 1 ? (
-                    <TbLemon onClick={() => navigate("/produtos")} />
-                  ) : (
-                    true
-                  )}
-                  {index === 2 ? (
-                    <IoPeopleOutline onClick={() => navigate("/usuarios")} />
-                  ) : (
-                    true
-                  )}
+                  <AiOutlineShoppingCart />
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
-        <Divider />
-        <List>
-          {["Sair"].map((text) => (
+
+        <List disablePadding onClick={() => navigate("/produtos")}>
+          {["Produtos"].map((text) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <FiLogOut onClick={() => handleConfirm()} />
+                  <TbLemon />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+
+        <List disablePadding onClick={() => navigate("/usuarios")}>
+          {["Usuários"].map((text) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <IoPeopleOutline />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        </>
+        )}
+
+        { !isAdmin && (
+        <List disablePadding onClick={() => navigate("/vendas/novo/resumo")}>
+          {["Minhas vendas"].map((text) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <AiOutlineShoppingCart />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        )}
+
+        <Divider />
+        <List>
+          {["Sair"].map((text) => (
+            <ListItem key={text} disablePadding onClick={() => handleConfirm()}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <FiLogOut />
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
