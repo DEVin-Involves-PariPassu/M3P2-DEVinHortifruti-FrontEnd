@@ -13,6 +13,9 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { TbLemon } from "react-icons/tb";
+import Swal from "sweetalert2";
+import { useSetRecoilState } from "recoil";
+import { signed } from "store/modules/auth/recoil";
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -24,6 +27,8 @@ export default function Sidebar() {
     right: false,
   });
 
+  const setLogado = useSetRecoilState(signed);
+
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event &&
@@ -34,6 +39,22 @@ export default function Sidebar() {
     }
 
     setState({ ...state, [anchor]: open });
+  };
+
+  const handleConfirm = () => {
+    Swal.fire({
+      title: "Tem certeza que deseja sair?",
+      icon: "warning",
+      width: "24rem",
+      showCancelButton: true,
+      confirmButtonColor: "#36a23f",
+      cancelButtonColor: "#d33",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setLogado(false);
+        navigate("/");
+      }
+    });
   };
 
   const list = (anchor) => (
@@ -79,7 +100,7 @@ export default function Sidebar() {
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <FiLogOut onClick={() => navigate("/")} />
+                  <FiLogOut onClick={() => handleConfirm()} />
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>

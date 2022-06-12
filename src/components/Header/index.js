@@ -3,8 +3,13 @@ import Sidebar from "components/Sidebar";
 import { useNavigate } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import Swal from "sweetalert2";
+import { useSetRecoilState } from "recoil";
+import { signed } from "store/modules/auth/recoil";
 
 const Header = () => {
+
+  const setLogado = useSetRecoilState(signed);
+
   const handleConfirm = () => {
     Swal.fire({
       title: "Tem certeza que deseja sair?",
@@ -15,6 +20,7 @@ const Header = () => {
       cancelButtonColor: "#d33",
     }).then((result) => {
       if (result.isConfirmed) {
+        setLogado(false);
         navigate("/");
       }
     });
