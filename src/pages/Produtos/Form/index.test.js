@@ -18,75 +18,76 @@ describe('ProdutoForm', () => {
 
     });
 
-    it('Should a have Name', () => {
+    it('Should a have PRODUCT Name', () => {
         render(<MemoryRouter>
                     <RecoilRoot>
                         <ProdutoForm/>
                     </RecoilRoot>
                 </MemoryRouter>
                );
-        const produtoNoma = screen.getByLabelText('Nome');
-        expect(produtonome).toBeInTheDocument();
+        const produtoNome = screen.getByLabelText('Nome');
+        expect(produtoNome).toBeInTheDocument();
         
     });
 
     
-    it('Should a have PRODUCT', () => {
+    it('Should a have PRODUCT value', () => {
         render(<MemoryRouter>
                     <RecoilRoot>
                          <ProdutoForm/>
                      </RecoilRoot>
                   </MemoryRouter>
+              );
         const produtoCaixa = screen.getBylabel("Preço da caixa");
         expect(produtoCaixa).toBeInTheDocument();
     });
     
     
     it('Should a have PRODUCT', () => {
-        render(render(<MemoryRouter>
-            <RecoilRoot>
-                 <ProdutoForm/>
-             </RecoilRoot>
-          </MemoryRouter>
+        render(<MemoryRouter>
+                            <RecoilRoot>
+                                <ProdutoForm/>
+                            </RecoilRoot>
+                        </MemoryRouter>
+        );
             const produtoDesc = screen.getBylabel("Descrição");
             expect(produtoDesc).toBeInTheDocument();
     });
 
     
-    it('Should a have PRODUCT', () => {
-        render(render(<MemoryRouter>
-                <RecoilRoot>
-                    <ProdutoForm/>
-                </RecoilRoot>
-            </MemoryRouter>
+    it('Should a have PRODUCT action', () => {
+        render(<MemoryRouter>
+                    <RecoilRoot>
+                        <ProdutoForm/>
+                    </RecoilRoot>
+                </MemoryRouter>
+        );
         const produtoativo = screen.getByLabelText("Produto Ativo?");
-            
         expect(produtoativo).toBeInTheDocument();
     });
 
    
-    it('Should a have Button', () => {
-        render(render(<MemoryRouter>
-            <RecoilRoot>
-                 <ProdutoForm/>
-             </RecoilRoot>
-          </MemoryRouter>
+    it('Should a have Button Black', () => {
+        render(<MemoryRouter>
+                    <RecoilRoot>
+                        <ProdutoForm/>
+                    </RecoilRoot>
+                </MemoryRouter>
+         );
         const produtoVoltar = screen.getByLabelText('Voltar');
         expect(produtoVoltar).toBeInTheDocument();
         
     });
 
-
-   
-    it('Should a have Button Cadastrar', () => {
-        render(render(<MemoryRouter>
+    it('Should a have Button Register', () => {
+        render(<MemoryRouter>
                         <RecoilRoot>
                             <ProdutoForm/>
                         </RecoilRoot>
                     </MemoryRouter>
-        const produtoURL = screen.getByLabelText('Cadastrar');
-        expect(produtoURL).toBeInTheDocument();
-        
+                );
+        const produtoCad = screen.getByLabelText('Cadastrar');
+        expect(produtoCad).toBeInTheDocument();
     });
 
 });
