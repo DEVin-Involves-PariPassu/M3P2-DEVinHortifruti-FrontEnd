@@ -1,0 +1,20 @@
+.input-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 400px;
+    height: 250px;  
+  }
+  
+  .form-modal {
+    background-color: #C4CAAF;
+  }
+  
+  .input-modal input {
+    padding: 10px;
+    background-color: #ffffff;
+  }
+  
+  #botao {
+    background-color: #4A5926;
+  }
