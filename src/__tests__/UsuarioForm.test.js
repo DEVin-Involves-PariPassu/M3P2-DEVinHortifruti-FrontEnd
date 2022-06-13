@@ -17,4 +17,11 @@ describe('UsuarioForm', ()=> {
         expect(fieldEmail).toBeInTheDocument();   
     });
 
+    test('deve conter campo de texto para digitar login do usuario', () => {
+        render(<UsuarioForm/>);
+
+        const fieldLogin = screen.getByPlaceholderText(/Login do Usuario/i)
+        expect(fieldLogin).toBeInTheDocument();
+    });
+
 });
