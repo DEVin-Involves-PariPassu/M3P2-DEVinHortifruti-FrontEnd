@@ -12,6 +12,9 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import moment from "moment";
+import api from "utils/api";
+import { authState } from "store/modules/auth/recoil";
+import { useRecoilValue } from "recoil";
 
 const UsuarioForm = () => {
   const [nome, setNome] = useState("");
@@ -20,11 +23,12 @@ const UsuarioForm = () => {
   const [dtNasc, setDtNasc] = useState("");
   const [dtNascimento, setDtNascimento] = useState("");
   const [isAdmin, setIsAdmin] = useState(true);
+  const token = useRecoilValue(authState);
+  api.defaults.headers.Authorization = `Bearer ${token}`;
 
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
-    try {
       event.preventDefault();
       if (!nome) {
         alert("Nome é um campo obrigatório.");
@@ -46,41 +50,30 @@ const UsuarioForm = () => {
         alert("Data de Nascimento é um campo obrigatório.");
         return;
       }
-      event.target.checkValidity();
-
-      const Swal = require("sweetalert2");
-      Swal.fire({
-        title: "Usuário cadastrado com sucesso.",
-        icon: "success",
-        width: "24rem",
-        confirmButtonColor: "#36a23f",
-      });
-      navigate("/usuarios");
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Desculpe o transtorno. Estamos resolvendo o problema.",
-        width: "24rem",
-      });
-    }
-
-
-    const response = await fetch("https://localhost:8081/users", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({
+      api.post("/users", {
         nome: nome,
         email: email,
         dtNascimento: dtNascimento,
         login: login,
         isAdmin: isAdmin,
-      }),
-    });
-    console.log(response);
+      })
+      .then(() => {
+        Swal.fire({
+          title: "Usuário cadastrado com sucesso.",
+          icon: "success",
+          width: "24rem",
+          confirmButtonColor: "#36a23f",
+        });
+        navigate('/usuarios');
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Desculpe o transtorno. Estamos resolvendo o problema.",
+          width: "24rem",
+        });
+      });
   };
 
   const handleCancel = () => {
@@ -166,7 +159,7 @@ const UsuarioForm = () => {
             value={dtNasc}
             onChange={(newDtNascimento) => {
               setDtNasc(newDtNascimento)
-              setDtNascimento(moment(dtNasc).utc().format('DD-MM-YYYY'))
+              setDtNascimento(moment(dtNasc).utc().format('DD/MM/YYYY'))
             }}
             renderInput={(params) => <TextField {...params} />}
           />
