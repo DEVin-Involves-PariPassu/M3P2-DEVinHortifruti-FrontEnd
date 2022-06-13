@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Box,
   TextField,
@@ -27,6 +27,7 @@ const UsuarioForm = () => {
   api.defaults.headers.Authorization = `Bearer ${token}`;
 
   const navigate = useNavigate();
+  const params = useParams();
 
   const handleSubmit = async (event) => {
       event.preventDefault();
@@ -50,6 +51,33 @@ const UsuarioForm = () => {
         alert("Data de Nascimento é um campo obrigatório.");
         return;
       }
+
+      if (params.id) {
+      api.put(`/users/${params.id}`, {
+        nome: nome,
+        email: email,
+        dtNascimento: dtNascimento,
+        login: login,
+        isAdmin: isAdmin,
+      })
+      .then(() => {
+        Swal.fire({
+          title: "Usuário atualizado com sucesso.",
+          icon: "success",
+          width: "24rem",
+          confirmButtonColor: "#36a23f",
+        });
+        navigate('/usuarios');
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Desculpe o transtorno. Estamos resolvendo o problema.",
+          width: "24rem",
+        });
+      });
+    } else {
       api.post("/users", {
         nome: nome,
         email: email,
@@ -74,7 +102,20 @@ const UsuarioForm = () => {
           width: "24rem",
         });
       });
+    }
   };
+
+  useEffect(() => {
+    if (params.id) {
+      api.get(`/users/${params.id}`).then((response) => {
+        setNome(response.data.nome);
+        setEmail(response.data.email);
+        setLogin(response.data.login);
+        setDtNascimento(new Date (response.data.dtNascimento).utc().format('MM/DD/YYYY'));
+        setIsAdmin(response.data.isAdmin);
+      });
+    }
+  }, [params]);
 
   const handleCancel = () => {
     Swal.fire({
