@@ -5,6 +5,7 @@ import api from 'utils/api';
 import { authState } from "store/modules/auth/recoil";
 import { useRecoilValue } from "recoil";
 import { isAdminState } from 'store/modules/auth/recoil';
+import Swal from "sweetalert2";
 
 
 import {
@@ -30,7 +31,34 @@ function ProdutoForm() {
   const isAdmin = useRecoilValue(isAdminState);
 
   const handleSubmitProduto = (event) => {
-    event.preventDefault();
+
+try {
+      event.preventDefault();
+      if (!urlFoto) {
+        alert("Url é um campo obrigatório.");
+        return;
+      } else if (!nome) {
+        alert("Nome é um campo obrigatório.");
+        return;
+      } 
+      else if (precoSugerido <= 0) {
+        alert("Preço é um campo obrigatório.");
+        return;
+      } else if (!descricao) {
+        alert("Descrição é um campo obrigatório.");
+        return;
+      }
+      event.target.checkValidity();
+      
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Desculpe o transtorno. Estamos resolvendo o problema.",
+        width: "24rem",
+      });
+    }
+
 
     if (parans.id) {
       api
@@ -42,7 +70,13 @@ function ProdutoForm() {
           isAtivo: status,
         })
         .then(() => {
-          alert('Produto atualizado com sucesso!');
+          const Swal = require("sweetalert2");
+          Swal.fire({
+            title: "Produto atualizado com sucesso.",
+            icon: "success",
+            width: "24rem",
+            confirmButtonColor: "#36a23f",
+          });
           navigate('/produtos');
         })
         .catch(() => {
@@ -60,7 +94,13 @@ function ProdutoForm() {
           isAtivo: status,
         })
         .then(() => {
-          alert('Produto cadastrado com sucesso!');
+          const Swal = require("sweetalert2");
+          Swal.fire({
+            title: "Produto cadastrado com sucesso.",
+            icon: "success",
+            width: "24rem",
+            confirmButtonColor: "#36a23f",
+          });
           navigate('/produtos');
         })
         .catch(() => {
