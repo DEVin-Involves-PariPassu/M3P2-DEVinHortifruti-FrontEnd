@@ -11,6 +11,7 @@ import {
   TableRow,
   TableCell,
 } from "@mui/material";
+import {mask} from "remask";
 
 function DetalhesVenda({ aberto, handleFechar, idVenda, ...props }) {
   const [venda, setVenda] = useState({});
@@ -26,7 +27,9 @@ function DetalhesVenda({ aberto, handleFechar, idVenda, ...props }) {
     }
     pegarVenda();
   }, []);
-
+  
+  const padraoCpf = "999.999.999-99"
+  const padraoTelefone = "+99 (99) 99999-9999"
   console.log(venda);
 
   return (
@@ -52,7 +55,7 @@ function DetalhesVenda({ aberto, handleFechar, idVenda, ...props }) {
                   fontSize: "1.3rem",
                   fontWeight:'lighter'
                 }}>
-                CPF: {venda.cpf}
+                CPF: {mask (venda.cpf,padraoCpf)}
               </Typography>
               <Typography id="email" variant="h6" component="h2" sx={{
                   fontFamily: "Squada One",
@@ -66,7 +69,7 @@ function DetalhesVenda({ aberto, handleFechar, idVenda, ...props }) {
                   fontSize: "1.3rem",
                   fontWeight:'lighter'
                 }}>
-                Telefone: {venda.telefone}
+                Telefone: {mask (venda.telefone, padraoTelefone)}
               </Typography>
             </div>
             <div className="modal-total-venda">
