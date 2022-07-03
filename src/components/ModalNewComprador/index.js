@@ -46,11 +46,9 @@ export default function AlertDialog({ open, handleClickOpen, handleClose }) {
   }
 
   const handleChangePhone = (e) => {
-    if (e.target.value.length <= 9) {
-      setTelefone(mask(e.target.value, '9999-9999'))
-    } else {
-      setTelefone(mask(e.target.value, '99999 - 9999'))
-    }
+   
+      setTelefone(mask(e.target.value, '+99 (99) 99999-9999'))
+    
 
   }
 
