@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { MdEdit, MdDelete } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
 import { FiUserCheck, FiUserX } from "react-icons/fi";
 import api from "utils/api";
 import InputSearch from "components/InputSearch";
@@ -53,8 +53,9 @@ export default function UsuarioList() {
 
   useEffect(() => {
     api
-      .get("/users")
-      .then((response) => setUsuarios(response.data))
+      .get("/usuarios")
+      .then((response) => {
+         setUsuarios(response.data.content)})
       .catch(() => alert("Não foi possível buscar usuários."));
   }, []);
 
@@ -100,8 +101,8 @@ export default function UsuarioList() {
             </TableHead>
 
             <TableBody sx={{ maxHeight: 600, color: "#36A23F" }}>
-              {usuarios
-                .filter((usuario) => {
+              {usuarios.filter ((usuario) => {
+                  console.log(usuario)
                   if (search === "") {
                     return usuario;
                   } else if (search !== "") {
@@ -109,6 +110,7 @@ export default function UsuarioList() {
                       .toLowerCase()
                       .includes(search.toLowerCase());
                   }
+                  return usuario;
                 })
                 .map(({ id, nome, email, dtNascimento, isAdmin }) => {
                   return (

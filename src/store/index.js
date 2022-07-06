@@ -21,4 +21,6 @@ const store = createStore(persistedReducer)
 
 const persistor = persistStore(store)
 
+//const token =
+
 export {store, persistor}

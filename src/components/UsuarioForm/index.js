@@ -53,7 +53,7 @@ const UsuarioForm = () => {
       }
 
       if (params.id) {
-      api.put(`/users/${params.id}`, {
+      api.put(`/usuarios/${params.id}`, {
         nome: nome,
         email: email,
         dtNascimento: dtNascimento,
@@ -78,7 +78,7 @@ const UsuarioForm = () => {
         });
       });
     } else {
-      api.post("/users", {
+      api.post("/usuarios", {
         nome: nome,
         email: email,
         dtNascimento: dtNascimento,
@@ -107,7 +107,7 @@ const UsuarioForm = () => {
 
   useEffect(() => {
     if (params.id) {
-      api.get(`/users/${params.id}`).then((response) => {
+      api.get(`/usuarios/${params.id}`).then((response) => {
         setNome(response.data.nome);
         setEmail(response.data.email);
         setLogin(response.data.login);
