@@ -12,7 +12,7 @@ import {
   UserFormInput,
 } from "../../pages/Login/login.elements";
 import Logo from "../../assets/logo1_colorida.png";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { authState, signed, isAdminState } from 'store/modules/auth/recoil';
 import api from 'utils/api';
 import Swal from 'sweetalert2';
