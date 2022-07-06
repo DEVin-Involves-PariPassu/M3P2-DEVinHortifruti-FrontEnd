@@ -1,10 +1,12 @@
-import React from 'react';
+import {React, useState} from 'react';
 import ModalNewComprador from 'components/ModalNewComprador';
+
 
 // import { Container } from './styles';
 
 function Comprador() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -19,7 +21,7 @@ function Comprador() {
       handleClickOpen={handleClickOpen}
       handleClose={handleClose}
     />
-  )
-}
+    )
+  }
 
 export default Comprador;
